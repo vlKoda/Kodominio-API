@@ -1,16 +1,12 @@
-package com.br.Kodominio.entidades;
+package com.br.Kodominio.modelos.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "CONDOMINIO")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-public class Condomínio {
+@Data
+@EqualsAndHashCode(of = "id")
+public class Condominio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
