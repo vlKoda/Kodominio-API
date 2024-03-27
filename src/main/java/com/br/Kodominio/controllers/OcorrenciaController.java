@@ -2,6 +2,7 @@ package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IOcorrencia;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
+
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,9 @@ public class OcorrenciaController {
 
     @GetMapping("/{condominio}")
     @CrossOrigin
-    public List<Ocorrencia> condominioOcorrencias(@PathVariable String condominio){
-        List<>
+    public List<Ocorrencia> condominioOcorrencias(@PathVariable Integer id){
+        List<Ocorrencia> ocoCondo = dao.findAllByCondominio_Id(id);
+        return ocoCondo;
     }
 
     @PostMapping("/inserir")

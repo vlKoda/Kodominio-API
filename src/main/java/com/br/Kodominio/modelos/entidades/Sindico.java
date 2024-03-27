@@ -12,9 +12,10 @@ public class Sindico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_sindico")
     private Integer id;
 
-    @Column(name = "condominio")
+    @Column(name = "condominio", nullable = false)
     private String condominio;
 
 }

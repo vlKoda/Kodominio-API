@@ -17,17 +17,17 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false, length = 40)
     protected String nome;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 40)
     protected String email;
 
-    @Column(name = "senha")
+    @Column(name = "senha", nullable = false, length = 40)
     protected String senha;
 
-    @Column(name = "telefone")
-   protected String telefone;
+    @Column(name = "telefone", nullable = false, length = 11)
+    protected String telefone;
 
     @ManyToMany
     private List<Role> roles;

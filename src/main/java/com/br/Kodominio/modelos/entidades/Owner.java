@@ -12,7 +12,7 @@ public class Owner extends Usuario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id_owner")
     private Integer id;
 
 

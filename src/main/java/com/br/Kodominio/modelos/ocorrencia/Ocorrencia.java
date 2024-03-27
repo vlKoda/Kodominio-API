@@ -1,5 +1,7 @@
 package com.br.Kodominio.modelos.ocorrencia;
 
+
+import com.br.Kodominio.modelos.entidades.Condominio;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +13,7 @@ public class Ocorrencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id_ocorrencia")
     private Integer id;
 
     @Column(name = "autor")
@@ -20,14 +22,14 @@ public class Ocorrencia {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "condominio")
-    private String condominio;
-
     @Column(name = "ocorrencia")
     private String bocorrencia;
 
     @Column(name = "status")
     private Integer status;
+
+    @ManyToOne
+    private Condominio condominio;
 
 
 }

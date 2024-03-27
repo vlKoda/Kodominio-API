@@ -12,8 +12,9 @@ public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_administrador")
     private Integer id;
 
-    @Column(name = "condominio")
+    @Column(name = "condominio", nullable = false)
     private String condominio;
 }

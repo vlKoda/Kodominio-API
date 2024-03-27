@@ -13,8 +13,9 @@ public class Porteiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_porteiro")
     private Integer id;
 
-    @Column(name = "condominio")
+    @Column(name = "condominio", nullable = false)
     private String condominio;
 }
