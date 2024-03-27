@@ -17,23 +17,47 @@ public class OcorrenciaController {
     private IOcorrencia dao;
 
     @GetMapping
+    @CrossOrigin
     public List<Ocorrencia> listarOcorrencia(){
         return (List<Ocorrencia>) dao.findAll();
     }
 
+    @GetMapping("/{id}")
+    @CrossOrigin
+    public Optional<Ocorrencia> getOcorrencia(@PathVariable Integer id){
+        Optional<Ocorrencia> Ocorrencia = dao.findById(id);
+        return Ocorrencia;
+    }
+
+    @GetMapping("/{condominio}")
+    @CrossOrigin
+    public List<Ocorrencia> condominioOcorrencias(@PathVariable String condominio){
+        List<>
+    }
+
     @PostMapping("/inserir")
+    @CrossOrigin
     public Ocorrencia criarOcorrencia(@RequestBody Ocorrencia ocorrencia) {
         Ocorrencia ocorrenciaCreate = dao.save(ocorrencia);
         return ocorrenciaCreate;
     }
 
     @PutMapping("/editar")
+    @CrossOrigin
     public Ocorrencia editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
         Ocorrencia ocorrenciaEdit = dao.save(ocorrencia);
         return ocorrenciaEdit;
     }
 
+    @PutMapping("/status")
+    @CrossOrigin
+    public Ocorrencia statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaStatus = dao.save(ocorrencia);
+        return ocorrenciaStatus;
+    }
+
     @DeleteMapping
+    @CrossOrigin
     public Optional<Ocorrencia> deletarOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = dao.findById(id);
         dao.deleteById(id);

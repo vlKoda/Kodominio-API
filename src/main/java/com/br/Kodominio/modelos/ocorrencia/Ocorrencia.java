@@ -20,8 +20,14 @@ public class Ocorrencia {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "condominio")
+    private String condominio;
+
     @Column(name = "ocorrencia")
     private String bocorrencia;
+
+    @Column(name = "status")
+    private Integer status;
 
 
 }
