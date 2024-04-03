@@ -5,6 +5,9 @@ import com.br.Kodominio.modelos.entidades.Condominio;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -30,6 +33,11 @@ public class Ocorrencia {
 
     @ManyToOne
     private Condominio condominio;
+
+    @Column(name = "data")
+    @CreationTimestamp
+    private Timestamp datahora;
+
 
 
 }

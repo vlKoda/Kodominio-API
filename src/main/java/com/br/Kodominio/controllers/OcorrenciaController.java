@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
@@ -35,6 +37,13 @@ public class OcorrenciaController {
     public List<Ocorrencia> condominioOcorrencias(@PathVariable Integer id){
         List<Ocorrencia> ocoCondo = dao.findAllByCondominio_Id(id);
         return ocoCondo;
+    }
+
+    @GetMapping("/{datahora}")
+    @CrossOrigin
+    public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
+        List<Ocorrencia> ocoHora = dao.findAllByData(datahora);
+        return ocoHora;
     }
 
     @PostMapping("/inserir")
