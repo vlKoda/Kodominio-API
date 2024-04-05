@@ -1,7 +1,6 @@
 package com.br.Kodominio.modelos.entidades;
 
 
-
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +8,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@Table(name = "condominio")
 @Data
 @EqualsAndHashCode(of = "id_condominio")
 public class Condominio {
@@ -39,7 +39,8 @@ public class Condominio {
     @Column(name = "cep", length = 8)
     private Integer cep;
 
-    @OneToMany(mappedBy = "id_condominio")
+    @OneToMany(mappedBy = "condominio")
     private List<Ocorrencia> ocorrencias;
+
 
 }

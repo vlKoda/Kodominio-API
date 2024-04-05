@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.*;
 
 @Entity
+@Table(name = "usuario")
 @Data
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TIPO")

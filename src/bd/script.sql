@@ -1,0 +1,1 @@
+CREATE INDEX condominio_id ON condominio(id)

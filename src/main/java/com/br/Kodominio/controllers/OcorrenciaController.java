@@ -1,6 +1,7 @@
 package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IOcorrencia;
+import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 
 import lombok.Data;
@@ -32,19 +33,24 @@ public class OcorrenciaController {
         return Ocorrencia;
     }
 
+
     @GetMapping("/{condominio}")
     @CrossOrigin
-    public List<Ocorrencia> condominioOcorrencias(@PathVariable Integer id){
-        List<Ocorrencia> ocoCondo = dao.findAllByCondominio_Id(id);
+    public List<Ocorrencia> condominioOcorrencias(@PathVariable Condominio id){
+        List<Ocorrencia> ocoCondo = dao.findAllByCondominio(id);
         return ocoCondo;
     }
 
+
+    /*
     @GetMapping("/{datahora}")
     @CrossOrigin
     public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
         List<Ocorrencia> ocoHora = dao.findAllByData(datahora);
         return ocoHora;
     }
+
+     */
 
     @PostMapping("/inserir")
     @CrossOrigin
@@ -59,6 +65,7 @@ public class OcorrenciaController {
         Ocorrencia ocorrenciaEdit = dao.save(ocorrencia);
         return ocorrenciaEdit;
     }
+
 
     @PutMapping("/status")
     @CrossOrigin

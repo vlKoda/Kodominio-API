@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "ocorrencia")
 @Data
 @EqualsAndHashCode(of = "id")
 public class Ocorrencia {
@@ -32,7 +33,8 @@ public class Ocorrencia {
     private Integer status;
 
     @ManyToOne
-    private Condominio id_condominio;
+    @JoinColumn(name = "id_condominio", nullable = false)
+    private Condominio condominio;
 
     @Column(name = "data")
     @CreationTimestamp
