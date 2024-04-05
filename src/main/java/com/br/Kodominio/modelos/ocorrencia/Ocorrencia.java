@@ -32,7 +32,7 @@ public class Ocorrencia {
     private Integer status;
 
     @ManyToOne
-    private Condominio condominio;
+    private Condominio id_condominio;
 
     @Column(name = "data")
     @CreationTimestamp

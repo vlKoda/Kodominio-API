@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.br</groupId>
-	<artifactId>Kodominio</artifactId>
+	<artifactId>kodominio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Kodominio</name>
 	<description>Demo project for Spring Boot</description>
@@ -84,6 +84,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>3.2.3</version>
 				<configuration>
+					<executable>true</executable>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
