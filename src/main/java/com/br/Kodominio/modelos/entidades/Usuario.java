@@ -6,13 +6,12 @@ import lombok.*;
 
 import java.util.*;
 
-@Entity
-@Table(name = "usuario")
+@MappedSuperclass
 @Data
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TIPO")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "role")
 @EqualsAndHashCode(of = "id")
-public class Usuario {
+public abstract class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

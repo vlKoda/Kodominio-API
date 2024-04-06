@@ -8,6 +8,7 @@ public class KodominioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KodominioApplication.class, args);
+		System.out.println("Aplicação ligada com sucesso!");
 	}
 
 }

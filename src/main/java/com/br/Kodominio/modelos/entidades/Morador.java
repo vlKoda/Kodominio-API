@@ -6,7 +6,8 @@ import lombok.*;
 @Entity
 @Table(name = "morador")
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorValue("morador")
+//@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role")
 @EqualsAndHashCode(of = "id")
 public class Morador extends Usuario {

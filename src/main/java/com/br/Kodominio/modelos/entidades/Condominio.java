@@ -10,12 +10,12 @@ import java.util.List;
 @Entity
 @Table(name = "condominio")
 @Data
-@EqualsAndHashCode(of = "id_condominio")
+@EqualsAndHashCode(of = "id")
 public class Condominio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_condominio")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nome", nullable = false, length = 200)

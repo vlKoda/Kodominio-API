@@ -41,16 +41,20 @@ public class OcorrenciaController {
         return ocoCondo;
     }
 
+    @GetMapping("/{data}")
+    @CrossOrigin
+    public List<Ocorrencia> dataOcorrencia(@PathVariable Date data){
+        List<Ocorrencia> dataOco = dao.findAllByData(data);
+        return dataOco;
+    }
 
-    /*
     @GetMapping("/{datahora}")
     @CrossOrigin
     public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
-        List<Ocorrencia> ocoHora = dao.findAllByData(datahora);
+        List<Ocorrencia> ocoHora = dao.findAllByDatahora(datahora);
         return ocoHora;
     }
 
-     */
 
     @PostMapping("/inserir")
     @CrossOrigin

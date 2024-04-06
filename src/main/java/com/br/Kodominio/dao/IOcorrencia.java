@@ -16,5 +16,7 @@ public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
 
    List<Ocorrencia> findAllByCondominio(Condominio id);
 
-    //List<Ocorrencia> findAllByData(Timestamp data);
+    List<Ocorrencia> findAllByDatahora(Timestamp datahora);
+
+    List<Ocorrencia> findAllByData(Date data);
 }

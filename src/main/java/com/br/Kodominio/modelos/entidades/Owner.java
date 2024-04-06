@@ -6,10 +6,11 @@ import lombok.*;
 @Entity
 @Table(name = "owner")
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorValue("owner")
+//@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role")
 @EqualsAndHashCode(of = "id")
-public class Owner extends Usuario{
+public class Owner extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

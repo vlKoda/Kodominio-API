@@ -6,13 +6,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "ocorrencia")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id_ocorrencia")
 public class Ocorrencia {
 
     @Id
@@ -38,7 +40,15 @@ public class Ocorrencia {
 
     @Column(name = "data")
     @CreationTimestamp
+    private Date data;
+
+    @Column(name = "datahora")
+    @CreationTimestamp
     private Timestamp datahora;
+
+    @Column(name = "datahora_editada")
+    @UpdateTimestamp
+    private Timestamp datahora_editada;
 
 
 
