@@ -1,10 +1,44 @@
 package com.br.Kodominio.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.br.Kodominio.dao.IUsuario;
+import com.br.Kodominio.modelos.entidades.Usuario;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@Data
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    @Autowired
+    private IUsuario dao;
+
+    @GetMapping
+    public List<Usuario> listarUsuario(){
+        return (List<Usuario>) dao.findAll();
+    }
+
+    @PostMapping("/cadastrar")
+    public Usuario cadastrarUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioCreate = dao.save(usuario);
+        return usuarioCreate;
+    }
+
+    @PutMapping("/editar")
+    public Usuario editarUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioEdit = dao.save(usuario);
+        return usuarioEdit;
+    }
+
+    @DeleteMapping("/deletar")
+    public Optional<Usuario> deletarUsuario(@PathVariable Long id){
+        Optional<Usuario> Usuario = dao.findById(id);
+        dao.deleteById(id);
+        return Usuario;
+    }
 }

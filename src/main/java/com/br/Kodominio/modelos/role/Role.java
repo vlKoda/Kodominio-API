@@ -1,18 +1,20 @@
 package com.br.Kodominio.modelos.role;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
+public enum Role {
+    // Especificando os tipos de role e criando construtor e Getter
+    OWNER("owner"),
+    ADMIN("admin"),
+    MORADOR("morador"),
+    PORTEIRO("porteiro"),
+    SINDICO("sindico");
 
-@Entity
-@Data
-public class Role {
+    private final String role;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Role(String role){
+        this.role = role;
+    }
 
-    private String nome;
+    public String getRole(){
+        return role;
+    }
 }

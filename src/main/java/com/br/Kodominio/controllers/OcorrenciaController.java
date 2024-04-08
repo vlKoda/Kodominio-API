@@ -20,13 +20,13 @@ public class OcorrenciaController {
     @Autowired
     private IOcorrencia dao;
 
-    @GetMapping
+    @GetMapping("/listar")
     @CrossOrigin
     public List<Ocorrencia> listarOcorrencia(){
         return (List<Ocorrencia>) dao.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("listar/{id}")
     @CrossOrigin
     public Optional<Ocorrencia> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = dao.findById(id);
@@ -34,21 +34,21 @@ public class OcorrenciaController {
     }
 
 
-    @GetMapping("/{condominio}")
+    @GetMapping("listar/{condominio}")
     @CrossOrigin
     public List<Ocorrencia> condominioOcorrencias(@PathVariable Condominio id){
         List<Ocorrencia> ocoCondo = dao.findAllByCondominio(id);
         return ocoCondo;
     }
 
-    @GetMapping("/{data}")
+    @GetMapping("listar/{data}")
     @CrossOrigin
     public List<Ocorrencia> dataOcorrencia(@PathVariable Date data){
         List<Ocorrencia> dataOco = dao.findAllByData(data);
         return dataOco;
     }
 
-    @GetMapping("/{datahora}")
+    @GetMapping("listar/{datahora}")
     @CrossOrigin
     public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
         List<Ocorrencia> ocoHora = dao.findAllByDatahora(datahora);
