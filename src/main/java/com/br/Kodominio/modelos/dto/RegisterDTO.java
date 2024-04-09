@@ -1,4 +1,4 @@
-package com.br.Kodominio.modelos.entidades;
+package com.br.Kodominio.modelos.dto;
 
 import com.br.Kodominio.modelos.role.Role;
 

@@ -1,8 +1,10 @@
 package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IUsuario;
-import com.br.Kodominio.modelos.entidades.AuthenticationDTO;
-import com.br.Kodominio.modelos.entidades.RegisterDTO;
+import com.br.Kodominio.infra.security.TokenService;
+import com.br.Kodominio.modelos.dto.AuthenticationDTO;
+import com.br.Kodominio.modelos.dto.LoginResponseDTO;
+import com.br.Kodominio.modelos.dto.RegisterDTO;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,18 @@ public class AuthenticationController {
     @Autowired
     private IUsuario dao;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
