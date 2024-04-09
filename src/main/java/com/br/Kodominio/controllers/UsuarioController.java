@@ -18,7 +18,7 @@ public class UsuarioController {
     @Autowired
     private IUsuario dao;
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Usuario> listarUsuario(){
         return (List<Usuario>) dao.findAll();
     }
