@@ -2,62 +2,52 @@ package com.br.Kodominio.modelos.entidades;
 
 import com.br.Kodominio.modelos.role.Role;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "owner")
 @Data
-// @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-// @DiscriminatorColumn(name = "role")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Usuario implements UserDetails {
+public class Owner implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 40)
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name = "email", nullable = false, length = 40)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "senha", nullable = false)
+    @Column(name = "senha")
     private String senha;
 
-    @Column(name = "telefone", nullable = false, length = 11)
-    private String telefone;
-
-    @ManyToOne
-    @JoinColumn(name = "id_condominio", nullable = false)
-    private Condominio condominio;
-
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private Role role;
 
-    public Usuario(String nome, String email, String senha, String telefone, Role role){
+    public Owner(String nome, String email, String senha, Role role){
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.telefone = telefone;
         this.role = role;
     }
 
-    //Especificando as autorizações de cada role
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SINDICO"),
+        if (this.role == Role.OWNER) return List.of(new SimpleGrantedAuthority("ROLE_OWNER"), new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SINDICO"),
                 new SimpleGrantedAuthority("ROLE_PORTEIRO"), new SimpleGrantedAuthority("ROLE_MORADOR"));
-        else if (this.role == Role.SINDICO) return List.of(new SimpleGrantedAuthority("ROLE_SINDICO"), new SimpleGrantedAuthority("ROLE_PORTEIRO"),
-                new SimpleGrantedAuthority("ROLE_MORADOR"));
-        else if (this.role == Role.PORTEIRO) return List.of(new SimpleGrantedAuthority("ROLE_PORTEIRO"), new SimpleGrantedAuthority("ROLE_MORADOR"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 

@@ -1,10 +1,13 @@
 package com.br.Kodominio.controllers;
 
+import com.br.Kodominio.dao.IOwner;
 import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.infra.security.TokenService;
 import com.br.Kodominio.modelos.dto.AuthenticationDTO;
 import com.br.Kodominio.modelos.dto.LoginResponseDTO;
 import com.br.Kodominio.modelos.dto.RegisterDTO;
+import com.br.Kodominio.modelos.dto.ResgisterOwnerDTO;
+import com.br.Kodominio.modelos.entidades.Owner;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class AuthenticationController {
     private IUsuario dao;
 
     @Autowired
+    private IOwner daoOwner;
+
+    @Autowired
     TokenService tokenService;
 
     @PostMapping("/login")
@@ -39,6 +45,17 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
+    @PostMapping("/loginowner")
+    @CrossOrigin
+    public ResponseEntity loginOwner(@RequestBody @Valid AuthenticationDTO data){
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+
+        var token = tokenService.generateTokenOwner((Owner) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
+    }
+
     @PostMapping("/register")
     @CrossOrigin
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
@@ -48,6 +65,19 @@ public class AuthenticationController {
         Usuario novoUsuario = new Usuario(data.nome(), data.email(), encryptedPassword, data.telefone(), data.role());
 
         this.dao.save(novoUsuario);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/registerowner")
+    @CrossOrigin
+    public ResponseEntity registerOwner(@RequestBody @Valid ResgisterOwnerDTO data){
+        if(this.daoOwner.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+        Owner novoOwner = new Owner(data.nome(), data.email(), encryptedPassword, data.role());
+
+        this.daoOwner.save(novoOwner);
 
         return ResponseEntity.ok().build();
     }

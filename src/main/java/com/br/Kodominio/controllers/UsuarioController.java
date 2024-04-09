@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar")
-    public Usuario cadastrarUsuario(@RequestBody Usuario usuario){
+    public Usuario cadastrarUsuario(@RequestParam String autor, @RequestParam String email, @RequestParam String bocorrencia, Usuario usuario){
         Usuario usuarioCreate = dao.save(usuario);
         return usuarioCreate;
     }
@@ -35,7 +35,7 @@ public class UsuarioController {
         return usuarioEdit;
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/deletar/{id}")
     public Optional<Usuario> deletarUsuario(@PathVariable Long id){
         Optional<Usuario> Usuario = dao.findById(id);
         dao.deleteById(id);

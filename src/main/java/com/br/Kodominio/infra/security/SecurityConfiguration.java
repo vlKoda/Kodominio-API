@@ -4,6 +4,7 @@ import com.br.Kodominio.controllers.AuthenticationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,8 +23,12 @@ public class SecurityConfiguration {
     @Autowired
     SecurityFilter securityFilter;
 
+    @Autowired
+    SecurityFilterOwner securityFilterOwner;
+
     //configurando as autorizações de todas as roles
     @Bean
+    //@Order(2)
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
@@ -31,15 +36,14 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/usuario/cadastrar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/registerowner").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/loginowner").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/usuario/editar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasRole("MORADOR")
-                        .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasRole("PORTEIRO")
-                        .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasRole("SINDICO")
-                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasRole("SINDICO")
-                        .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/condominio/cadastrar").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasAnyRole("MORADOR", "PORTEIRO")
+                        .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasAnyRole("ADMIN", "SINDICO")
+                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasAnyRole("ADMIN", "SINDICO")
+                        .requestMatchers(HttpMethod.POST, "/condominio/cadastrar").hasAnyRole("ADMIN", "OWNER")
                         .requestMatchers(HttpMethod.DELETE, "/condominio").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/ocorrencia").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/ocorrencia/status").hasRole("ADMIN")
@@ -48,6 +52,23 @@ public class SecurityConfiguration {
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    //@Order(1)
+    public SecurityFilterChain securityFilterChain2(HttpSecurity httpSecurity) throws Exception{
+        return httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "auth/registerowner").permitAll()
+                        .requestMatchers(HttpMethod.POST, "auth/loginowner").permitAll()
+                        .requestMatchers(HttpMethod.POST, "condominio/cadastrar").hasRole("OWNER")
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(securityFilterOwner, UsernamePasswordAuthenticationFilter.class)
+                .build();
+
     }
 
     @Bean

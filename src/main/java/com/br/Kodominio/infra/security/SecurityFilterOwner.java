@@ -1,7 +1,6 @@
 package com.br.Kodominio.infra.security;
 
 import com.br.Kodominio.dao.IOwner;
-import com.br.Kodominio.dao.IUsuario;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +15,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class SecurityFilterOwner extends OncePerRequestFilter {
 
     @Autowired
     TokenService tokenService;
-
-    @Autowired
-    IUsuario dao;
 
     @Autowired
     IOwner daoOwner;
@@ -32,14 +28,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = this.recoverToken(request);
         if (token != null){
             var email = tokenService.validateToken(token);
-            UserDetails user = dao.findByEmail(email);
+            UserDetails user = daoOwner.findByEmail(email);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
-
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
