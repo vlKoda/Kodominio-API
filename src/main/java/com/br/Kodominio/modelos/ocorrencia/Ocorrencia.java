@@ -25,6 +25,9 @@ public class Ocorrencia {
     @Column(name = "autor")
     private String autor;
 
+    @Column(name = "apartamento")
+    private String apartamento;
+
     @Column(name = "email")
     private String email;
 
@@ -33,6 +36,12 @@ public class Ocorrencia {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "prioridade")
+    private String prioridade;
+
+    @Column(name = "aprovacao")
+    private String aprovacao;
 
     @ManyToOne
     @JoinColumn(name = "id_condominio", nullable = false)

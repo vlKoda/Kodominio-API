@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.br.Kodominio.modelos.entidades.Owner;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,20 +24,6 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("kodominio")
                     .withSubject(usuario.getEmail())
-                    .withExpiresAt(genExpirationDate())
-                    .sign(algorithm);
-            return token;
-        }catch(JWTCreationException e){
-            throw new RuntimeException("Erro em geração de token", e);
-        }
-    }
-
-    public String generateTokenOwner(Owner owner){
-        try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            String token = JWT.create()
-                    .withIssuer("kodominio")
-                    .withSubject(owner.getEmail())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;

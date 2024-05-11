@@ -1,6 +1,5 @@
 package com.br.Kodominio.infra.security;
 
-import com.br.Kodominio.dao.IOwner;
 import com.br.Kodominio.dao.IUsuario;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,9 +23,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     IUsuario dao;
 
-    @Autowired
-    IOwner daoOwner;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
@@ -39,7 +35,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");

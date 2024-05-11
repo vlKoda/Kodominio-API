@@ -33,7 +33,6 @@ public class OcorrenciaController {
         return Ocorrencia;
     }
 
-
     @GetMapping("listar/{condominio}")
     @CrossOrigin
     public List<Ocorrencia> condominioOcorrencias(@PathVariable Condominio id){
@@ -55,6 +54,12 @@ public class OcorrenciaController {
         return ocoHora;
     }
 
+    @GetMapping("listar/{autor}")
+    @CrossOrigin
+    public List<Ocorrencia> autorOcorrencia(@PathVariable String autor){
+        List<Ocorrencia> ocoAutor = dao.findAllByAutor(autor);
+        return ocoAutor;
+    }
 
     @PostMapping("/inserir")
     @CrossOrigin
@@ -70,12 +75,25 @@ public class OcorrenciaController {
         return ocorrenciaEdit;
     }
 
-
     @PutMapping("/status")
     @CrossOrigin
     public Ocorrencia statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
         Ocorrencia ocorrenciaStatus = dao.save(ocorrencia);
         return ocorrenciaStatus;
+    }
+
+    @PutMapping("/prioridade")
+    @CrossOrigin
+    public Ocorrencia prioridadeOcorrencia(@RequestBody String prioridade, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaPrioridade = dao.save(ocorrencia);
+        return ocorrenciaPrioridade;
+    }
+
+    @PutMapping("/aprovacao")
+    @CrossOrigin
+    public Ocorrencia aprovarOcorrencia(@RequestBody String aprovacao, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaAprovar = dao.save(ocorrencia);
+        return ocorrenciaAprovar;
     }
 
     @DeleteMapping

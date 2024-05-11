@@ -1,10 +1,22 @@
+version: "8.0.20"
 services:
-  mysql:
-    image: 'mysql:latest'
+  postgres:
+    image: "mysql"
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
-   ports:
-     - '3306'
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Celo1337,
+      - MYSQL_DB=kodominio
+    ports:
+      - "3360:3360"
+    volumes:
+      - /mysql-data:/var/lib/mysql/data
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "eodev@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "13241"
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql

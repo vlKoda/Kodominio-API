@@ -35,25 +35,31 @@ public class Usuario implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-    @ManyToOne
-    @JoinColumn(name = "id_condominio", nullable = false)
-    private Condominio condominio;
+    @Column(name = "condominio", nullable = true)
+    private String condominio;
+
+    @Column(name = "apartamento", nullable = true)
+    private String apartamento;
 
     @Column(name = "role", nullable = false)
     private Role role;
 
-    public Usuario(String nome, String email, String senha, String telefone, Role role){
+    public Usuario(String nome, String email, String senha, String telefone, String condoninio, String apartamento,Role role){
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+        this.condominio = condominio;
+        this.apartamento = apartamento;
         this.role = role;
     }
 
     //Especificando as autorizações de cada role
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SINDICO"),
+        if (this.role == Role.OWNER) return List.of(new SimpleGrantedAuthority("ROLE_OWNER"), new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SINDICO"),
+                new SimpleGrantedAuthority("ROLE_PORTEIRO"), new SimpleGrantedAuthority("ROLE_MORADOR"));
+        else if (this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SINDICO"),
                 new SimpleGrantedAuthority("ROLE_PORTEIRO"), new SimpleGrantedAuthority("ROLE_MORADOR"));
         else if (this.role == Role.SINDICO) return List.of(new SimpleGrantedAuthority("ROLE_SINDICO"), new SimpleGrantedAuthority("ROLE_PORTEIRO"),
                 new SimpleGrantedAuthority("ROLE_MORADOR"));

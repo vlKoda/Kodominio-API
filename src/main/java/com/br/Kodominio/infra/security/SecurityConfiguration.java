@@ -23,12 +23,9 @@ public class SecurityConfiguration {
     @Autowired
     SecurityFilter securityFilter;
 
-    @Autowired
-    SecurityFilterOwner securityFilterOwner;
 
     //configurando as autorizações de todas as roles
     @Bean
-    //@Order(2)
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
@@ -46,29 +43,12 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/condominio/cadastrar").hasAnyRole("ADMIN", "OWNER")
                         .requestMatchers(HttpMethod.DELETE, "/condominio").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/ocorrencia").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/ocorrencia/status").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/ocorrencia/status").hasRole("SINDICO")
                         .requestMatchers(HttpMethod.DELETE, "/usuario/deletar").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
-
-    @Bean
-    //@Order(1)
-    public SecurityFilterChain securityFilterChain2(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "auth/registerowner").permitAll()
-                        .requestMatchers(HttpMethod.POST, "auth/loginowner").permitAll()
-                        .requestMatchers(HttpMethod.POST, "condominio/cadastrar").hasRole("OWNER")
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(securityFilterOwner, UsernamePasswordAuthenticationFilter.class)
-                .build();
-
     }
 
     @Bean

@@ -21,4 +21,6 @@ public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
     List<Ocorrencia> findAllByDatahora(Timestamp datahora);
 
     List<Ocorrencia> findAllByData(Date data);
+
+    List<Ocorrencia> findAllByAutor(String autor);
 }
