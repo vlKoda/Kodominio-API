@@ -20,7 +20,7 @@ ssh root@77.37.43.21
 ```
 5. Inicie o docker swarm e crie a rede web (se for a primeira vez)
 ```
-docker stack init
+docker swarm init
 docker network create --driver overlay web
 ```
 6. Faca o deploy do stack
