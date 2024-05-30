@@ -26,4 +26,4 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Define o comando de inicialização
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
