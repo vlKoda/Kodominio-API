@@ -39,9 +39,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
+    @GetMapping("/hello")
+    @CrossOrigin
+    public String hello(){
+        return "hello world";
+    }
+
     @PostMapping("/register")
     @CrossOrigin
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+        System.out.println("to dentro");
         if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());

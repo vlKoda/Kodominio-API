@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: kodominio
+      MYSQL_ROOT_PASSWORD: Celo1337,
+    ports:
+      - "3306:3306"
+    networks:
+      - web
+
+  frontend:
+    depends_on:
+      - backend
+    image: rbasstos/kodominio-front
+    ports:
+      - "80:80"
+    networks:
+      - web
+
+  backend:
+    depends_on:
+      - db
+    image: rbasstos/kodominio-api
+    ports:
+      - "8080:8080"
+    networks:
+      - web
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/kodominio
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Celo1337,
+
+networks:
+  web:
+    external: true
