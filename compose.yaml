@@ -1,6 +1,6 @@
 version: "8.0.20"
 services:
-  postgres:
+  mysql:
     image: "mysql"
     environment:
       - MYSQL_USER=root

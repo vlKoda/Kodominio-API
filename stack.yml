@@ -15,7 +15,7 @@ services:
   frontend:
     depends_on:
       - backend
-    image: rbasstos/kodominio-front
+    image: kodominio-front
     ports:
       - "80:80"
     networks:
@@ -24,7 +24,7 @@ services:
   backend:
     depends_on:
       - db
-    image: rbasstos/kodominio-api
+    image: kodominio-api
     ports:
       - "8080:8080"
     networks:
