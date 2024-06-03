@@ -17,7 +17,7 @@ public class CondominioController {
     @Autowired
     private ICondominio dao;
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Condominio> listarCondominio() {
         return (List<Condominio>) dao.findAll();
     }
