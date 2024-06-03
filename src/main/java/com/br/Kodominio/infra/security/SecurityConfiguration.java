@@ -33,10 +33,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/usuario/cadastrar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/registerowner").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/hello").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/loginowner").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/usuario/editar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasAnyRole("MORADOR", "PORTEIRO")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasAnyRole("ADMIN", "SINDICO")

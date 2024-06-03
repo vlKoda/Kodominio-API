@@ -4,6 +4,7 @@ import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -25,6 +26,7 @@ public class UsuarioController {
 
     @PostMapping("/cadastrar")
     public Usuario cadastrarUsuario(@RequestParam String autor, @RequestParam String email, @RequestParam String bocorrencia, Usuario usuario){
+        String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getSenha());
         Usuario usuarioCreate = dao.save(usuario);
         return usuarioCreate;
     }
