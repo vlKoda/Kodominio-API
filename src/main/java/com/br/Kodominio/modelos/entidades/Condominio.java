@@ -39,10 +39,10 @@ public class Condominio {
     @Column(name = "cep", length = 8)
     private Integer cep;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Ocorrencia> ocorrencias;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Usuario> usuarios;
 
 
