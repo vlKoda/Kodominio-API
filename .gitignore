@@ -3,7 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/cond-ci.cmd
+cond-ci.cmd
+stack.yml
 
 ### STS ###
 .apt_generated
