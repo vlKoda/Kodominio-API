@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 cond-ci.cmd
+stack.yml
 
 ### STS ###
 .apt_generated

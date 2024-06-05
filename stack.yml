@@ -15,7 +15,7 @@ services:
   frontend:
     depends_on:
       - backend
-    image: kodominio-front
+    image: cheloakachelo/kodominio-front
     ports:
       - "80:80"
     networks:
@@ -24,7 +24,7 @@ services:
   backend:
     depends_on:
       - db
-    image: kodominio-api
+    image: cheloakachelo/kodominio-api
     ports:
       - "8080:8080"
     networks:
