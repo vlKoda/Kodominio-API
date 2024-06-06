@@ -42,8 +42,8 @@ public class Condominio {
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Ocorrencia> ocorrencias;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Usuario> usuarios;
+    // @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    // private List<Usuario> usuarios;
 
 
 }
