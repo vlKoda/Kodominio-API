@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    public Usuario(String nome, String email, String senha, String telefone, Condominio condoninio, String apartamento, Role role){
+    public Usuario(String nome, String email, String senha, String telefone, Condominio condominio, String apartamento, Role role){
         this.nome = nome;
         this.email = email;
         this.senha = senha;
