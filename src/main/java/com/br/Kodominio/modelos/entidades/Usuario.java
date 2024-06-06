@@ -35,12 +35,12 @@ public class Usuario implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-    // @Column(name = "condominio", nullable = true)
-    // private String condominio;
+    @Column(name = "condominio", nullable = true)
+    private String condominio;
 
-    @ManyToOne
-    @JoinColumn(name = "id_condominio")
-    private Condominio condominio;
+    // @ManyToOne
+    //@JoinColumn(name = "id_condominio")
+    //private Condominio condominio;
 
     @Column(name = "apartamento", nullable = true)
     private String apartamento;
@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    public Usuario(String nome, String email, String senha, String telefone, Condominio condoninio, String apartamento, Role role){
+    public Usuario(String nome, String email, String senha, String telefone, String condominio, String apartamento, Role role){
         this.nome = nome;
         this.email = email;
         this.senha = senha;

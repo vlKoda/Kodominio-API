@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @EnableJpaRepositories
-public interface ICondominio extends CrudRepository<Condominio, Integer> {
+public interface ICondominio extends CrudRepository<Condominio, Long> {
 
 }
