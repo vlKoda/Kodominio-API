@@ -4,6 +4,7 @@ import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
