@@ -1,6 +1,7 @@
 package com.br.Kodominio.modelos.entidades;
 
 import com.br.Kodominio.modelos.role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,9 +36,9 @@ public class Usuario implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-
     @ManyToOne
     @JoinColumn(name = "id_condominio")
+    @JsonIgnoreProperties("usuarios")
     private Condominio condominio;
 
     @Column(name = "apartamento", nullable = true)
