@@ -17,7 +17,7 @@ public class Condominio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "nome", nullable = false, length = 200)
     private String nome;
