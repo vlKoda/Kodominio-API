@@ -30,6 +30,7 @@ public class TokenService {
                     .withExpiresAt(genExpirationDate())
                     .withClaim("role", role)
                     .withClaim("id", usuario.getId())
+                    .withClaim("condominio", usuario.getCondominio().getId())
                     .sign(algorithm);
             return token;
         }catch(JWTCreationException e){
