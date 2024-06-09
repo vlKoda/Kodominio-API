@@ -32,7 +32,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     @CrossOrigin
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
+    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data, Usuario usuario){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 

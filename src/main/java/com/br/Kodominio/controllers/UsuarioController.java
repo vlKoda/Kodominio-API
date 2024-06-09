@@ -4,16 +4,15 @@ import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.modelos.dto.RegisterDTO;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import com.br.Kodominio.modelos.role.Role;
+import com.br.Kodominio.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +24,13 @@ public class UsuarioController {
     @Autowired
     private IUsuario dao;
 
+    @Autowired
+    private UsuarioService service;
+
     @GetMapping("/listar")
-    public List<Usuario> listarUsuario(){
-        return (List<Usuario>) dao.findAll();
+    public ResponseEntity<List<Usuario>> listarUsuario(){
+        List<Usuario> listaUsuario = service.listarUsuario();
+        return ResponseEntity.ok(listaUsuario);
     }
 
     @PostMapping("/cadastrar")
@@ -45,15 +48,14 @@ public class UsuarioController {
     }
 
     @PutMapping("/editar")
-    public Usuario editarUsuario(@RequestBody Usuario usuario){
-        Usuario usuarioEdit = dao.save(usuario);
-        return usuarioEdit;
+    public ResponseEntity<Usuario> editarUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioEdit = service.editarUsuario(usuario);
+        return ResponseEntity.ok(usuarioEdit);
     }
 
     @DeleteMapping("/deletar/{id}")
-    public Optional<Usuario> deletarUsuario(@PathVariable Long id){
-        Optional<Usuario> Usuario = dao.findById(id);
-        dao.deleteById(id);
-        return Usuario;
+    public ResponseEntity<Void> deletarUsuario(@PathVariable Long id){
+        service.deletarUsuario(id);
+        return ResponseEntity.noContent().build();
     }
 }

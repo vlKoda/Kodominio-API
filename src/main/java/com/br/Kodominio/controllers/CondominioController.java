@@ -4,8 +4,10 @@ import com.br.Kodominio.dao.ICondominio;
 
 import com.br.Kodominio.modelos.entidades.Condominio;
 
+import com.br.Kodominio.services.CondominioService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -17,30 +19,31 @@ public class CondominioController {
     @Autowired
     private ICondominio dao;
 
+    @Autowired
+    private CondominioService service;
+
     @GetMapping("/listar")
-    public List<Condominio> listarCondominio() {
-        return (List<Condominio>) dao.findAll();
+    public ResponseEntity<List<Condominio>> listarCondominio() {
+        List<Condominio> listaCondominio = service.listarCondominio();
+        return ResponseEntity.ok(listaCondominio);
     }
 
     @PostMapping("/cadastrar")
-    public Condominio criarCondominio(@RequestBody Condominio condominio){
-        Condominio condominioCreate = dao.save(condominio);
-        return condominioCreate;
+    public ResponseEntity<Condominio> criarCondominio(@RequestBody Condominio condominio){
+        Condominio condominioCreate = service.cadastrar(condominio);
+        return ResponseEntity.ok(condominioCreate);
     }
 
     @PutMapping("/editar")
-    public Condominio editarCondominio(@RequestParam String nome, @RequestParam String rua, @RequestParam Integer numero,
-                                       @RequestParam String bairro, @RequestParam String cidade, @RequestParam String estado,
-                                       @RequestParam String cep, Condominio condominio){
-        Condominio condominioEdit = dao.save(condominio);
-        return condominioEdit;
+    public ResponseEntity<Condominio> editarCondominio(@RequestBody Condominio condominio){
+        Condominio condominioEdit = service.editarCondominio(condominio);
+        return ResponseEntity.ok(condominioEdit);
     }
 
-    @DeleteMapping
-    public Optional<Condominio> deletarCondominio(@PathVariable Integer id){
-        Optional<Condominio> Condominio = dao.findById(id);
-        dao.deleteById(id);
-        return Condominio;
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarCondominio(@PathVariable Integer id){
+        service.deletarCondominio(id);
+        return ResponseEntity.noContent().build();
     }
 
 
