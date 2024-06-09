@@ -25,6 +25,7 @@ public class TokenService {
                     .withIssuer("kodominio")
                     .withSubject(usuario.getEmail())
                     .withExpiresAt(genExpirationDate())
+                    .withClaim("id", usuario.getId())
                     .sign(algorithm);
             return token;
         }catch(JWTCreationException e){
