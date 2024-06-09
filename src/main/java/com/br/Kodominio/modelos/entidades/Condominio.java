@@ -38,7 +38,7 @@ public class Condominio {
     private String estado;
 
     @Column(name = "cep", length = 8)
-    private Integer cep;
+    private String cep;
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Ocorrencia> ocorrencias;

@@ -31,7 +31,7 @@ public class CondominioController {
     @PutMapping("/editar")
     public Condominio editarCondominio(@RequestParam String nome, @RequestParam String rua, @RequestParam Integer numero,
                                        @RequestParam String bairro, @RequestParam String cidade, @RequestParam String estado,
-                                       @RequestParam Integer cep, Condominio condominio){
+                                       @RequestParam String cep, Condominio condominio){
         Condominio condominioEdit = dao.save(condominio);
         return condominioEdit;
     }
