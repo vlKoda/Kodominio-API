@@ -1,10 +1,15 @@
 package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IUsuario;
+import com.br.Kodominio.modelos.dto.RegisterDTO;
 import com.br.Kodominio.modelos.entidades.Usuario;
+import com.br.Kodominio.modelos.role.Role;
+import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +31,17 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar")
-    public Usuario cadastrarUsuario(@RequestParam String autor, @RequestParam String email, @RequestParam String bocorrencia, Usuario usuario){
-        String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getSenha());
-        Usuario usuarioCreate = dao.save(usuario);
-        return usuarioCreate;
+    public ResponseEntity cadastrarUsuario(@RequestBody @Valid RegisterDTO data){
+        if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        if(data.role() == Role.OWNER && data.condominio() != null && data.apartamento() != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+        Usuario novoUsuario = new Usuario(data.nome(), data.email(), encryptedPassword, data.telefone(), data.condominio(), data.apartamento(), data.role());
+
+        this.dao.save(novoUsuario);
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/editar")
