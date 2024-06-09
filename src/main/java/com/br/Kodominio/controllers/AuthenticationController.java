@@ -49,7 +49,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     @CrossOrigin
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity register(@RequestBody @Valid RegisterDTO data,  Condominio condominio){
         System.out.println("to dentro");
         if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
