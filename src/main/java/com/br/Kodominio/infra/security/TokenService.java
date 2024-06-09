@@ -24,6 +24,8 @@ public class TokenService {
 
             String role = String.valueOf(usuario.getRole());
 
+            if (usuario.getCondominio() != null) {
+
             String token = JWT.create()
                     .withIssuer("kodominio")
                     .withSubject(usuario.getEmail())
@@ -32,7 +34,20 @@ public class TokenService {
                     .withClaim("id", usuario.getId())
                     .withClaim("condominio", usuario.getCondominio().getId())
                     .sign(algorithm);
+
             return token;
+            }else{
+                String token = JWT.create()
+                        .withIssuer("kodominio")
+                        .withSubject(usuario.getEmail())
+                        .withExpiresAt(genExpirationDate())
+                        .withClaim("role", role)
+                        .withClaim("id", usuario.getId())
+                        .sign(algorithm);
+
+                return token;
+            }
+
         }catch(JWTCreationException e){
             throw new RuntimeException("Erro em geração de token", e);
         }
