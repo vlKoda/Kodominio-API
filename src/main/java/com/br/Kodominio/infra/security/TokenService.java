@@ -21,11 +21,14 @@ public class TokenService {
     public String generateToken(Usuario usuario){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
+
+            String role = String.valueOf(usuario.getRole());
+
             String token = JWT.create()
                     .withIssuer("kodominio")
                     .withSubject(usuario.getEmail())
                     .withExpiresAt(genExpirationDate())
-                    .withClaim("id", usuario.getId())
+                    .withClaim("role", role)
                     .sign(algorithm);
             return token;
         }catch(JWTCreationException e){
