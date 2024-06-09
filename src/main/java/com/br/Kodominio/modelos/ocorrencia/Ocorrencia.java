@@ -46,11 +46,7 @@ public class Ocorrencia {
 
     @ManyToOne
     @JoinColumn(name = "id_condominio", nullable = false)
-<<<<<<< HEAD
-    @JsonIgnoreProperties("usuarios")
-=======
     @JsonIgnoreProperties("ocorrencias")
->>>>>>> 0723557b88be18b301ed64c5698c282a41b464ab
     private Condominio condominio;
 
     @Column(name = "data")
