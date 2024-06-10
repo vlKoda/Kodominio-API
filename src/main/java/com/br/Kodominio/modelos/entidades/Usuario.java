@@ -3,6 +3,7 @@ package com.br.Kodominio.modelos.entidades;
 import com.br.Kodominio.modelos.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,8 +14,6 @@ import java.util.*;
 @Entity
 @Table(name = "usuario")
 @Data
-// @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-// @DiscriminatorColumn(name = "role")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -24,15 +23,19 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "Este campo é obrigatório")
     @Column(name = "nome", nullable = false, length = 40)
     private String nome;
 
+    @NotNull(message = "Este campo é obrigatório")
     @Column(name = "email", nullable = false, length = 40)
     private String email;
 
+    @NotNull(message = "Este campo é obrigatório")
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @NotNull(message = "Este campo é obrigatório")
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 

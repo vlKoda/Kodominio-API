@@ -5,7 +5,6 @@ import com.br.Kodominio.infra.security.TokenService;
 import com.br.Kodominio.modelos.dto.AuthenticationDTO;
 import com.br.Kodominio.modelos.dto.LoginResponseDTO;
 import com.br.Kodominio.modelos.dto.RegisterDTO;
-import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import com.br.Kodominio.modelos.role.Role;
 import jakarta.validation.Valid;
