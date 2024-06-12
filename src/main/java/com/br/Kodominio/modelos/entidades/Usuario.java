@@ -70,7 +70,7 @@ public class Usuario implements UserDetails {
         else if (this.role == Role.SINDICO) return List.of(new SimpleGrantedAuthority("ROLE_SINDICO"), new SimpleGrantedAuthority("ROLE_PORTEIRO"),
                 new SimpleGrantedAuthority("ROLE_MORADOR"));
         else if (this.role == Role.PORTEIRO) return List.of(new SimpleGrantedAuthority("ROLE_PORTEIRO"), new SimpleGrantedAuthority("ROLE_MORADOR"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_MORADOR"), new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

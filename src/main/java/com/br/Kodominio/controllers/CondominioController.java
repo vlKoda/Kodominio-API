@@ -36,7 +36,7 @@ public class CondominioController {
         return condominioEdit;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public Optional<Condominio> deletarCondominio(@PathVariable Integer id){
         Optional<Condominio> Condominio = dao.findById(id);
         dao.deleteById(id);

@@ -4,7 +4,9 @@ import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class UsuarioController {
         return (List<Usuario>) dao.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Optional<Usuario> usuarioById(@PathVariable Long id){
         return dao.findById(id);
     }
@@ -41,10 +43,11 @@ public class UsuarioController {
         return usuarioEdit;
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public Optional<Usuario> deletarUsuario(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Optional<Usuario>> deletarUsuario(@PathVariable Long id){
         Optional<Usuario> Usuario = dao.findById(id);
         dao.deleteById(id);
-        return Usuario;
+        return ResponseEntity.ok().build();
     }
 }
