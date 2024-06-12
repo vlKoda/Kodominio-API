@@ -33,6 +33,12 @@ public class UsuarioController {
         return ResponseEntity.ok(listaUsuario);
     }
 
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<Optional<Usuario>> listarPorId(@PathVariable Long id){
+        Optional<Usuario> usuarioListar = service.listarPorId(id);
+        return ResponseEntity.ok(usuarioListar);
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrarUsuario(@RequestBody @Valid RegisterDTO data){
         if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

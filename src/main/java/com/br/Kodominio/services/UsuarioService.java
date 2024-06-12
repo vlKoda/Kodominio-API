@@ -24,6 +24,10 @@ public class UsuarioService {
         return (List<Usuario>) dao.findAll();
     }
 
+    public Optional listarPorId(@PathVariable Long id){
+        return dao.findById(id);
+    }
+
     public Optional<Usuario> deletarUsuario(@PathVariable Long id){
         Optional<Usuario> usuario = dao.findById(id);
         dao.deleteById(id);
