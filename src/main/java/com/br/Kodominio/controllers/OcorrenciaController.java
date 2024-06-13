@@ -2,6 +2,7 @@ package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IOcorrencia;
 import com.br.Kodominio.modelos.entidades.Condominio;
+import com.br.Kodominio.modelos.entidades.Usuario;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 
 import lombok.Data;
@@ -57,11 +58,21 @@ public class OcorrenciaController {
         return ocoHora;
     }
 
+    /*
     @GetMapping("/listar/{autor}")
     @CrossOrigin
     public List<Ocorrencia> autorOcorrencia(@PathVariable String autor){
         List<Ocorrencia> ocoAutor = dao.findAllByAutor(autor);
         return ocoAutor;
+    }
+
+     */
+
+    @GetMapping("/listar/{usuario}")
+    @CrossOrigin
+    public List<Ocorrencia> usuarioOcorrencia(@PathVariable Usuario id){
+        List<Ocorrencia> ocoUsuario = dao.findAllByUsuario(id);
+        return ocoUsuario;
     }
 
     @PostMapping("/inserir")
