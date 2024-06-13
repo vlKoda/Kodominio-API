@@ -2,6 +2,7 @@ package com.br.Kodominio.modelos.ocorrencia;
 
 
 import com.br.Kodominio.modelos.entidades.Condominio;
+import com.br.Kodominio.modelos.entidades.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -43,6 +44,11 @@ public class Ocorrencia {
 
     @Column(name = "aprovacao")
     private String aprovacao;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    @JsonIgnoreProperties("ocorrencias")
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_condominio", nullable = false)

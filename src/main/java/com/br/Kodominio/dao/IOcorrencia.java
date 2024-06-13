@@ -3,6 +3,7 @@ package com.br.Kodominio.dao;
 import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,7 @@ public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
     List<Ocorrencia> findAllByData(Date data);
 
     List<Ocorrencia> findAllByAutor(String autor);
+
+    @Query("select distinct o from Ocorrencia o join fetch o.usuario")
+    List<Ocorrencia> findAll();
 }
