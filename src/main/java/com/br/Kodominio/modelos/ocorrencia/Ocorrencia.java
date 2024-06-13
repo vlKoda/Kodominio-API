@@ -16,12 +16,12 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "ocorrencia")
 @Data
-@EqualsAndHashCode(of = "id_ocorrencia")
+@EqualsAndHashCode(of = "id")
 public class Ocorrencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_ocorrencia")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "autor")
