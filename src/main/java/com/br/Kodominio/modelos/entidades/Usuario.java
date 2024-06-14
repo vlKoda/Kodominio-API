@@ -1,7 +1,9 @@
 package com.br.Kodominio.modelos.entidades;
 
+import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import com.br.Kodominio.modelos.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -42,6 +44,7 @@ public class Usuario implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "id_condominio")
     @JsonIgnoreProperties("usuarios")
+    @JsonManagedReference
     private Condominio condominio;
 
     @Column(name = "apartamento", nullable = true)

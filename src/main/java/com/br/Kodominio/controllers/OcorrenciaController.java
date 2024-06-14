@@ -41,15 +41,6 @@ public class OcorrenciaController {
         return ocoCondo;
     }
 
-    /*
-    @GetMapping("listar/{data}")
-    @CrossOrigin
-    public List<Ocorrencia> dataOcorrencia(@PathVariable Date data){
-        List<Ocorrencia> dataOco = dao.findAllByData(data);
-        return dataOco;
-    }
-
-     */
 
     @GetMapping("/listar/{datahora}")
     @CrossOrigin
@@ -58,15 +49,6 @@ public class OcorrenciaController {
         return ocoHora;
     }
 
-    /*
-    @GetMapping("/listar/{autor}")
-    @CrossOrigin
-    public List<Ocorrencia> autorOcorrencia(@PathVariable String autor){
-        List<Ocorrencia> ocoAutor = dao.findAllByAutor(autor);
-        return ocoAutor;
-    }
-
-     */
 
     @GetMapping("/listar/{usuario}")
     @CrossOrigin
