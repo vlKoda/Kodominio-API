@@ -1,14 +1,14 @@
 package com.br.Kodominio.controllers;
 
 import com.br.Kodominio.dao.IOcorrencia;
-import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 
+import com.br.Kodominio.services.OcorrenciaService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -20,87 +20,78 @@ public class OcorrenciaController {
     @Autowired
     private IOcorrencia dao;
 
+    @Autowired
+    private OcorrenciaService service;
+
     @GetMapping("/listar")
     @CrossOrigin
-    public List<Ocorrencia> listarOcorrencia(){
-        return (List<Ocorrencia>) dao.findAll();
+    public ResponseEntity<List<Ocorrencia>> listarOcorrencia(){
+        List<Ocorrencia> list = dao.findAll();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("listar/{id}")
     @CrossOrigin
-    public Optional<Ocorrencia> getOcorrencia(@PathVariable Integer id){
-        Optional<Ocorrencia> Ocorrencia = dao.findById(id);
-        return Ocorrencia;
+    public ResponseEntity<Optional<Ocorrencia>> getOcorrencia(@PathVariable Integer id){
+        Optional<Ocorrencia> Ocorrencia = service.getOcorrencia(id);
+        return ResponseEntity.ok(Ocorrencia);
     }
 
-    @GetMapping("listar/{condominio}")
+    @GetMapping("listar/condominio/{condominio}")
     @CrossOrigin
-    public List<Ocorrencia> condominioOcorrencias(@PathVariable Condominio id){
-        List<Ocorrencia> ocoCondo = dao.findAllByCondominio(id);
-        return ocoCondo;
+    public ResponseEntity<List<Ocorrencia>> condominioOcorrencias(@PathVariable Integer idCondominio){
+        List<Ocorrencia> ocoCondo = service.listarCondominio(idCondominio);
+        return ResponseEntity.ok(ocoCondo);
     }
 
-    @GetMapping("listar/{data}")
-    @CrossOrigin
-    public List<Ocorrencia> dataOcorrencia(@PathVariable Date data){
-        List<Ocorrencia> dataOco = dao.findAllByData(data);
-        return dataOco;
-    }
 
     @GetMapping("listar/{datahora}")
     @CrossOrigin
-    public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
-        List<Ocorrencia> ocoHora = dao.findAllByDatahora(datahora);
-        return ocoHora;
+    public ResponseEntity<List<Ocorrencia>> horaOcorrencias(@PathVariable Timestamp datahora){
+        List<Ocorrencia> ocoHora = service.listarDataHora(datahora);
+        return ResponseEntity.ok(ocoHora);
     }
 
-    @GetMapping("listar/{autor}")
-    @CrossOrigin
-    public List<Ocorrencia> autorOcorrencia(@PathVariable String autor){
-        List<Ocorrencia> ocoAutor = dao.findAllByAutor(autor);
-        return ocoAutor;
-    }
 
     @PostMapping("/inserir")
     @CrossOrigin
-    public Ocorrencia criarOcorrencia(@RequestBody Ocorrencia ocorrencia) {
-        Ocorrencia ocorrenciaCreate = dao.save(ocorrencia);
-        return ocorrenciaCreate;
+    public ResponseEntity<Ocorrencia> criarOcorrencia(@RequestBody Ocorrencia ocorrencia) {
+        Ocorrencia ocorrenciaCreate = service.inserirOcorrencia(ocorrencia);
+        return ResponseEntity.ok(ocorrenciaCreate);
     }
 
     @PutMapping("/editar")
     @CrossOrigin
-    public Ocorrencia editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaEdit = dao.save(ocorrencia);
-        return ocorrenciaEdit;
+    public ResponseEntity<Ocorrencia> editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaEdit = service.editarOcorrencia(bocorrencia, ocorrencia);
+        return ResponseEntity.ok(ocorrenciaEdit);
     }
 
     @PutMapping("/status")
     @CrossOrigin
-    public Ocorrencia statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaStatus = dao.save(ocorrencia);
-        return ocorrenciaStatus;
+    public ResponseEntity<Ocorrencia> statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaStatus = service.setStatus(status, ocorrencia);
+        return ResponseEntity.ok(ocorrenciaStatus);
     }
 
     @PutMapping("/prioridade")
     @CrossOrigin
-    public Ocorrencia prioridadeOcorrencia(@RequestBody String prioridade, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaPrioridade = dao.save(ocorrencia);
-        return ocorrenciaPrioridade;
+    public ResponseEntity<Ocorrencia> prioridadeOcorrencia(@RequestBody String prioridade, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaPrioridade = service.setPrioridade(prioridade, ocorrencia);
+        return ResponseEntity.ok(ocorrenciaPrioridade);
     }
 
     @PutMapping("/aprovacao")
     @CrossOrigin
-    public Ocorrencia aprovarOcorrencia(@RequestBody String aprovacao, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaAprovar = dao.save(ocorrencia);
-        return ocorrenciaAprovar;
+    public ResponseEntity<Ocorrencia> aprovarOcorrencia(@RequestBody String aprovacao, Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaAprovar = service.setAprovacao(aprovacao, ocorrencia);
+        return ResponseEntity.ok(ocorrenciaAprovar);
     }
 
     @DeleteMapping
     @CrossOrigin
-    public Optional<Ocorrencia> deletarOcorrencia(@PathVariable Integer id){
-        Optional<Ocorrencia> Ocorrencia = dao.findById(id);
-        dao.deleteById(id);
-        return Ocorrencia;
+    public ResponseEntity<Optional<Ocorrencia>> deletarOcorrencia(@PathVariable Integer id){
+        service.deletarOcorrencia(id);
+        return ResponseEntity.noContent().build();
     }
 }

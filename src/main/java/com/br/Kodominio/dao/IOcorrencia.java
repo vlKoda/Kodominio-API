@@ -17,14 +17,15 @@ import java.util.List;
 public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
 
 
-   List<Ocorrencia> findAllByCondominio(Condominio id);
+   List<Ocorrencia> findAllByCondominioId(Integer idCondominio);
+
+   List<Ocorrencia> findAllByUsuarioId(Long idUsuario);
 
     List<Ocorrencia> findAllByDatahora(Timestamp datahora);
 
-    List<Ocorrencia> findAllByData(Date data);
-
     List<Ocorrencia> findAllByAutor(String autor);
 
-    @Query("select distinct o from Ocorrencia o join fetch o.usuario")
+    @Query("select distinct o from Ocorrencia o join fetch o.usuario join fetch o.condominio")
     List<Ocorrencia> findAll();
+
 }

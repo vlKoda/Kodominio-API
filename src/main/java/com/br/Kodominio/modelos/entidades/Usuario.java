@@ -1,7 +1,9 @@
 package com.br.Kodominio.modelos.entidades;
 
 import com.br.Kodominio.modelos.role.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,8 +15,6 @@ import java.util.*;
 @Entity
 @Table(name = "usuario")
 @Data
-// @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-// @DiscriminatorColumn(name = "role")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -39,6 +39,7 @@ public class Usuario implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "id_condominio")
     @JsonIgnoreProperties("usuarios")
+    @JsonManagedReference
     private Condominio condominio;
 
     @Column(name = "apartamento", nullable = true)
