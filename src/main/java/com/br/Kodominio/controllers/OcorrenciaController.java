@@ -30,7 +30,7 @@ public class OcorrenciaController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/listar/id/{id}")
+    @GetMapping("/listar/{id}")
     @CrossOrigin
     public ResponseEntity<Optional<Ocorrencia>> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = service.getOcorrencia(id);
