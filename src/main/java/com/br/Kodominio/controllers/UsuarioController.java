@@ -33,7 +33,7 @@ public class UsuarioController {
         return ResponseEntity.ok(listaUsuario);
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/listar/id/{id}")
     public ResponseEntity<Optional<Usuario>> listarPorId(@PathVariable Long id){
         Optional<Usuario> usuarioListar = service.listarPorId(id);
         return ResponseEntity.ok(usuarioListar);

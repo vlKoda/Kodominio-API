@@ -30,22 +30,28 @@ public class OcorrenciaController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("listar/{id}")
+    @GetMapping("/listar/id/{id}")
     @CrossOrigin
     public ResponseEntity<Optional<Ocorrencia>> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = service.getOcorrencia(id);
         return ResponseEntity.ok(Ocorrencia);
     }
 
-    @GetMapping("listar/condominio/{condominio}")
+    @GetMapping("/listar/condominio/{condominio}")
     @CrossOrigin
     public ResponseEntity<List<Ocorrencia>> condominioOcorrencias(@PathVariable Integer idCondominio){
         List<Ocorrencia> ocoCondo = service.listarCondominio(idCondominio);
         return ResponseEntity.ok(ocoCondo);
     }
 
+    @GetMapping("/listar/usuario/{idUsuario}")
+    public ResponseEntity<List<Ocorrencia>> usuarioOcorrencias(@PathVariable Long idUsuario){
+        List<Ocorrencia> ocoUser = service.listarUsuario(idUsuario);
+        return ResponseEntity.ok(ocoUser);
+    }
 
-    @GetMapping("listar/{datahora}")
+
+    @GetMapping("/listar/datahora/{datahora}")
     @CrossOrigin
     public ResponseEntity<List<Ocorrencia>> horaOcorrencias(@PathVariable Timestamp datahora){
         List<Ocorrencia> ocoHora = service.listarDataHora(datahora);
@@ -88,7 +94,7 @@ public class OcorrenciaController {
         return ResponseEntity.ok(ocorrenciaAprovar);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/deletar/{id}")
     @CrossOrigin
     public ResponseEntity<Optional<Ocorrencia>> deletarOcorrencia(@PathVariable Integer id){
         service.deletarOcorrencia(id);
