@@ -27,7 +27,7 @@ public class OcorrenciaController {
         return (List<Ocorrencia>) dao.findAll();
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/listar/id/{id}")
     @CrossOrigin
     public Optional<Ocorrencia> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = dao.findById(id);
@@ -91,7 +91,7 @@ public class OcorrenciaController {
         return ocorrenciaAprovar;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @CrossOrigin
     public Optional<Ocorrencia> deletarOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = dao.findById(id);
