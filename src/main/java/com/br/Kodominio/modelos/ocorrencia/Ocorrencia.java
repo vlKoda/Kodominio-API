@@ -33,7 +33,7 @@ public class Ocorrencia {
     private String bocorrencia;
 
     @Column(name = "status", nullable = false)
-    private Integer status;
+    private String status;
 
     @Column(name = "prioridade", nullable = false)
     private String prioridade;
@@ -64,7 +64,13 @@ public class Ocorrencia {
     @PrePersist
     protected void onCreate(){
         if (this.status == null){
-            this.status = 0;
+            this.status = "Em avaliação";
+        }
+        if (this.prioridade == null){
+            this.prioridade = "Leve";
+        }
+        if (this.aprovacao == null){
+            this.aprovacao = "Em andamento";
         }
     }
 
