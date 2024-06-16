@@ -52,12 +52,12 @@ public class Condominio {
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("condominio")
-    @JsonManagedReference
+    @JsonManagedReference("condominio-ocorrencias")
     private List<Ocorrencia> ocorrencias;
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnoreProperties("condominio")
-    @JsonManagedReference
+    @JsonManagedReference("condominio-usuarios")
     private List<Usuario> usuarios;
 
 
