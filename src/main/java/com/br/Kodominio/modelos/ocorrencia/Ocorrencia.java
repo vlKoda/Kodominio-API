@@ -29,7 +29,7 @@ public class Ocorrencia {
     private String bocorrencia;
 
     @Column(name = "status")
-    private Integer status;
+    private String status;
 
     @Column(name = "prioridade")
     private String prioridade;
@@ -57,6 +57,18 @@ public class Ocorrencia {
     @UpdateTimestamp
     private Timestamp datahora_editada;
 
+    @PrePersist
+    protected void onCreate(){
+        if (this.status == null){
+            this.status = "Em avaliação";
+        }
+        if (this.prioridade == null){
+            this.prioridade = "Leve";
+        }
+        if (this.aprovacao == null){
+            this.aprovacao = "Em andamento";
+        }
+    }
 
 
 }
