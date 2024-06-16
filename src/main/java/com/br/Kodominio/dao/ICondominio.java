@@ -12,6 +12,6 @@ import java.util.List;
 @EnableJpaRepositories
 public interface ICondominio extends CrudRepository<Condominio, Integer> {
 
-    @Query("select distinct c from Condominio c join fetch c.usuarios")
+    @Query("select distinct c from Condominio c left join fetch c.usuarios")
     List<Condominio> findAll();
 }
