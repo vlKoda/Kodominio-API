@@ -3,6 +3,7 @@ package com.br.Kodominio.modelos.ocorrencia;
 
 import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.entidades.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -44,13 +45,13 @@ public class Ocorrencia {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     @JsonIgnoreProperties("ocorrencias")
-    @JsonManagedReference
+    @JsonBackReference
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_condominio")
     @JsonIgnoreProperties("ocorrencias")
-    @JsonManagedReference
+    @JsonBackReference
     private Condominio condominio;
 
     @Column(name = "datahora")
