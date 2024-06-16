@@ -44,13 +44,11 @@ public class Ocorrencia {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    @JsonIgnoreProperties("ocorrencias")
     @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_condominio")
-    @JsonIgnoreProperties("ocorrencias")
     @JsonBackReference("condominio-ocorrencias")
     private Condominio condominio;
 
