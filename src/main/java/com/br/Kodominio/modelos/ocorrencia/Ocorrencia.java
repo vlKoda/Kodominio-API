@@ -40,13 +40,13 @@ public class Ocorrencia {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     @JsonIgnoreProperties("ocorrencias")
-    @JsonBackReference
+    @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_condominio", nullable = false)
     @JsonIgnoreProperties("ocorrencias")
-    @JsonBackReference
+    @JsonBackReference("condominio-ocorrencias")
     private Condominio condominio;
 
     @Column(name = "datahora")

@@ -4,11 +4,13 @@ import com.br.Kodominio.dao.IUsuario;
 import com.br.Kodominio.modelos.dto.RegisterDTO;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import com.br.Kodominio.modelos.role.Role;
+import com.br.Kodominio.services.EmailService;
 import com.br.Kodominio.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Usuario>> listarUsuario(){
@@ -49,6 +54,8 @@ public class UsuarioController {
         Usuario novoUsuario = new Usuario(data.nome(), data.email(), encryptedPassword, data.telefone(), data.condominio(), data.apartamento(), data.role());
 
         this.dao.save(novoUsuario);
+
+        emailService.enviarEmailTexto(novoUsuario.getEmail(), "Usuário cadastrrado", "Bem-vindo à nossa plataforma. Sua senha de acesso: " + data.senha());
 
         return ResponseEntity.ok().build();
     }

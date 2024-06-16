@@ -8,6 +8,7 @@ import com.br.Kodominio.modelos.dto.RegisterDTO;
 import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import com.br.Kodominio.modelos.role.Role;
+import com.br.Kodominio.services.EmailService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,9 @@ public class AuthenticationController {
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data, Usuario usuario){
@@ -41,16 +45,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @GetMapping("/hello")
-    @CrossOrigin
-    public String hello(){
-        return "hello world";
-    }
 
     @PostMapping("/register")
     @CrossOrigin
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data,  Condominio condominio){
-        System.out.println("to dentro");
         if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         if(data.role() == Role.OWNER && data.condominio() != null && data.apartamento() != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -60,6 +58,8 @@ public class AuthenticationController {
         Usuario novoUsuario = new Usuario(data.nome(), data.email(), encryptedPassword, data.telefone(), data.condominio(), data.apartamento(), data.role());
 
         this.dao.save(novoUsuario);
+
+        emailService.enviarEmailTexto(novoUsuario.getEmail(),"Usuário cadastrado", "Bem-vindo à nossa plataforma. Sua senha de acesso: " + data.senha());
 
         return ResponseEntity.ok().build();
     }

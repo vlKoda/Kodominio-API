@@ -23,7 +23,6 @@ public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
 
     List<Ocorrencia> findAllByDatahora(Timestamp datahora);
 
-    List<Ocorrencia> findAllByAutor(String autor);
 
     @Query("select distinct o from Ocorrencia o join fetch o.usuario join fetch o.condominio")
     List<Ocorrencia> findAll();

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +29,7 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @Column(name = "email", nullable = false, length = 40)
+    @Email
     private String email;
 
     @Column(name = "senha", nullable = false)
@@ -39,7 +41,7 @@ public class Usuario implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "id_condominio")
     @JsonIgnoreProperties("usuarios")
-    @JsonManagedReference
+    @JsonBackReference("condominio-usuarios")
     private Condominio condominio;
 
     @Column(name = "apartamento", nullable = true)
