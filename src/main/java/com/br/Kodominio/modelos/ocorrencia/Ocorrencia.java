@@ -43,12 +43,12 @@ public class Ocorrencia {
     private String aprovacao;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario", nullable = false)
     @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_condominio")
+    @JoinColumn(name = "id_condominio", nullable = false)
     @JsonBackReference("condominio-ocorrencias")
     private Condominio condominio;
 
