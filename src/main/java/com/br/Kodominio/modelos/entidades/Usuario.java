@@ -40,7 +40,6 @@ public class Usuario implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "id_condominio")
-    @JsonIgnoreProperties("usuarios")
     @JsonBackReference("condominio-usuarios")
     private Condominio condominio;
 

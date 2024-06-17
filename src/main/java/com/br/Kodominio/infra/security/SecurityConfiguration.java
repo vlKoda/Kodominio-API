@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/usuario/editar").permitAll()
                         .requestMatchers(HttpMethod.GET,"/condominio/listar").hasAnyRole("OWNER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasAnyRole("MORADOR", "PORTEIRO")
+                        .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").permitAll()
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/{id}").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/usuario/{idUsuario}").hasAnyRole("ADMIN", "SINDICO")
