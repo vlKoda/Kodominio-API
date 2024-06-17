@@ -44,6 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/datahora/{datahora}").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/usuario/listar").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/usuario/listar/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/listar/condominio/{idCondominio}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/condominio/cadastrar").hasAnyRole("ADMIN", "OWNER")
                         .requestMatchers(HttpMethod.DELETE, "/condominio/{id}").hasRole("OWNER")
                         .requestMatchers(HttpMethod.DELETE, "/ocorrencia/{id}").hasRole("ADMIN")

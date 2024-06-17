@@ -30,6 +30,11 @@ public class UsuarioController {
         return dao.findById(id);
     }
 
+    @GetMapping("/listar/condominio/{idCondominio}")
+    public List<Usuario> listarPorCondominio(Integer idCondominio){
+        return (List<Usuario>) dao.findAllByCondominioId(idCondominio);
+    }
+
     @PostMapping("/cadastrar")
     public Usuario cadastrarUsuario(@RequestParam String autor, @RequestParam String email, @RequestParam String bocorrencia, Usuario usuario){
         String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getSenha());
