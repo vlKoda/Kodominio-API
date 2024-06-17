@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +19,8 @@ public interface IUsuario extends CrudRepository<Usuario, Long> {
 
     Optional<Usuario> findById(Long id);
 
-    @Query("select distinct u from Usuario u join fetch u.condominio")
-    List<Usuario> findAllByCondominioId(Integer idCondominio);
+    @Query("select distinct u from Usuario u join fetch u.condominio c where c.id = :idCondominio")
+    List<Usuario> findAllByCondominioId(@Param("idCondominio") Integer idCondominio);
 
 
 }

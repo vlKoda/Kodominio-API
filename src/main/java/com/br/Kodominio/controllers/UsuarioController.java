@@ -21,17 +21,20 @@ public class UsuarioController {
     private IUsuario dao;
 
     @GetMapping("/listar")
+    @CrossOrigin
     public List<Usuario> listarUsuario(){
         return (List<Usuario>) dao.findAll();
     }
 
     @GetMapping("/listar/{id}")
+    @CrossOrigin
     public Optional<Usuario> usuarioById(@PathVariable Long id){
         return dao.findById(id);
     }
 
     @GetMapping("/listar/condominio/{idCondominio}")
-    public List<Usuario> listarPorCondominio(Integer idCondominio){
+    @CrossOrigin
+    public List<Usuario> listarPorCondominio(@PathVariable Integer idCondominio){
         return (List<Usuario>) dao.findAllByCondominioId(idCondominio);
     }
 
