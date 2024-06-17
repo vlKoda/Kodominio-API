@@ -54,7 +54,7 @@ public class Condominio {
     @JsonManagedReference("condominio-ocorrencias")
     private List<Ocorrencia> ocorrencias;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference("condominio-usuarios")
     private List<Usuario> usuarios;
 
