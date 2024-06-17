@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/ocorrencia/inserir").hasAnyRole("PORTEIRO", "MORADOR")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/{id}").hasAnyRole("ADMIN", "SINDICO")
-                        .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/usuario/{idUsuario}").hasAnyRole("ADMIN", "SINDICO")
+                        .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/usuario/{idUsuario}").hasAnyRole("ADMIN", "SINDICO", "PORTEIRO", "MORADOR")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/condominio/{idCondominio}").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/ocorrencia/listar/datahora/{datahora}").hasAnyRole("ADMIN", "SINDICO")
                         .requestMatchers(HttpMethod.GET, "/usuario/listar").hasAnyRole("ADMIN", "SINDICO")

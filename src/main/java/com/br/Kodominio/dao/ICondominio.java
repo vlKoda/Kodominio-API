@@ -14,4 +14,6 @@ public interface ICondominio extends CrudRepository<Condominio, Integer> {
 
     @Query("select distinct c from Condominio c left join fetch c.usuarios")
     List<Condominio> findAll();
+
+    List<Condominio> findAllById(Integer id);
 }

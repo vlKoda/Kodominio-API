@@ -22,6 +22,11 @@ public class CondominioController {
         return (List<Condominio>) dao.findAll();
     }
 
+    @GetMapping("/listar/{id}")
+    public List<Condominio> listarCondominioPorId(@PathVariable Integer id){
+        return (List<Condominio>) dao.findAllById(id);
+    }
+
     @PostMapping("/cadastrar")
     public Condominio criarCondominio(@RequestBody Condominio condominio){
         Condominio condominioCreate = dao.save(condominio);
