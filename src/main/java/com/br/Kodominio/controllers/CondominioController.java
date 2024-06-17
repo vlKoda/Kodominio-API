@@ -23,8 +23,8 @@ public class CondominioController {
     }
 
     @GetMapping("/listar/{id}")
-    public List<Condominio> listarCondominioPorId(@PathVariable Integer id){
-        return (List<Condominio>) dao.findAllById(id);
+    public Optional<Condominio> condominioPorId(@PathVariable Integer id){
+        return (Optional<Condominio>) dao.findById(id);
     }
 
     @PostMapping("/cadastrar")
