@@ -13,7 +13,7 @@ import java.util.Optional;
 @EnableJpaRepositories
 public interface ICondominio extends CrudRepository<Condominio, Integer> {
 
-    @Query("select distinct c from Condominio c left join fetch c.usuarios")
+    @Query("select distinct c from Condominio c left join fetch c.usuarios left join fetch c.ocorrencias")
     List<Condominio> findAll();
 
     Optional<Condominio> findById(Integer id);

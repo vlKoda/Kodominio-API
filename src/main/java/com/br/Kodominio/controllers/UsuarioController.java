@@ -1,6 +1,8 @@
 package com.br.Kodominio.controllers;
 
+import com.br.Kodominio.dao.ICondominio;
 import com.br.Kodominio.dao.IUsuario;
+import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class UsuarioController {
 
     @Autowired
     private IUsuario dao;
+
 
     @GetMapping("/listar")
     @CrossOrigin
@@ -53,9 +56,11 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CrossOrigin
     public ResponseEntity<Optional<Usuario>> deletarUsuario(@PathVariable Long id){
         Optional<Usuario> Usuario = dao.findById(id);
         dao.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+
     }
 }

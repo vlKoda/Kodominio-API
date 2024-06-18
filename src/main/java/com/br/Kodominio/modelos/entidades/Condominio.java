@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "condominio")
@@ -50,13 +52,15 @@ public class Condominio {
     @Column(name = "cep", nullable = false, length = 8)
     private String cep;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference("condominio-ocorrencias")
-    private List<Ocorrencia> ocorrencias;
+    @BatchSize(size = 20)
+    private Set<Ocorrencia> ocorrencias;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference("condominio-usuarios")
-    private List<Usuario> usuarios;
+    @BatchSize(size = 20)
+    private Set<Usuario> usuarios;
 
 
 }

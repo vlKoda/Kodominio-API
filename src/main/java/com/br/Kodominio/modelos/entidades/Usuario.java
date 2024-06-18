@@ -53,6 +53,10 @@ public class Usuario implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Ocorrencia> ocorrencias;
+
+
     public Usuario(String nome, String email, String senha, String telefone, Condominio condominio, String apartamento, Role role){
         this.nome = nome;
         this.email = email;

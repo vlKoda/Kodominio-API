@@ -30,7 +30,7 @@ public class Ocorrencia {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "ocorrencia", nullable = false)
+    @Column(name = "ocorrencia", length = 255, nullable = false)
     private String bocorrencia;
 
     @Column(name = "status", nullable = false)
@@ -54,10 +54,12 @@ public class Ocorrencia {
 
     @Column(name = "datahora")
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp datahora;
 
     @Column(name = "datahora_editada")
     @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp datahora_editada;
 
     @PrePersist
