@@ -1,5 +1,6 @@
 package com.br.Kodominio.modelos.entidades;
 
+import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import com.br.Kodominio.modelos.role.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -48,6 +49,9 @@ public class Usuario implements UserDetails {
 
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "id_usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Ocorrencia> ocorrencias;
 
     public Usuario(String nome, String email, String senha, String telefone, Condominio condominio, String apartamento, Role role){
         this.nome = nome;

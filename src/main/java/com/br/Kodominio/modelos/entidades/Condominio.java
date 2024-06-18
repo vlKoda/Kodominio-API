@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "condominio")
@@ -42,13 +43,13 @@ public class Condominio {
     @Column(name = "cep", length = 8)
     private String cep;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference("condominio-ocorrencias")
-    private List<Ocorrencia> ocorrencias;
+    private Set<Ocorrencia> ocorrencias;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference("condominio-usuarios")
-    private List<Usuario> usuarios;
+    private Set<Usuario> usuarios;
 
 
 }

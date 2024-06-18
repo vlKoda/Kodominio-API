@@ -15,7 +15,7 @@ public interface ICondominio extends CrudRepository<Condominio, Integer> {
 
     Optional<Condominio> findById(Condominio id);
 
-    @Query("select distinct c from Condominio c join fetch c.usuarios")
+    @Query("select distinct c from Condominio c join fetch c.usuarios join fetch c.ocorrencias")
     List<Condominio> findAll();
 
 }

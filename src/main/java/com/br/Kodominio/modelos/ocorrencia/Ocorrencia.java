@@ -49,10 +49,12 @@ public class Ocorrencia {
 
     @Column(name = "datahora")
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp datahora;
 
     @Column(name = "datahora_editada")
     @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp datahora_editada;
 
     @PrePersist
