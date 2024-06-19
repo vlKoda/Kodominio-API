@@ -7,6 +7,7 @@ import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -27,33 +28,50 @@ public class OcorrenciaController {
         return (List<Ocorrencia>) dao.findAll();
     }
 
-    @GetMapping("/listar/id/{id}")
+    @GetMapping("/listar/{id}")
     @CrossOrigin
-    public Optional<Ocorrencia> getOcorrencia(@PathVariable Integer id){
+    public ResponseEntity<?> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = dao.findById(id);
-        return Ocorrencia;
+        if (Ocorrencia.isPresent()){
+            return ResponseEntity.ok(Ocorrencia.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/listar/condominio/{idCondominio}")
     @CrossOrigin
-    public List<Ocorrencia> condominioOcorrencias(@PathVariable Integer idCondominio){
+    public ResponseEntity<?> condominioOcorrencias(@PathVariable Integer idCondominio){
         List<Ocorrencia> ocoCondo = dao.findAllByCondominioId(idCondominio);
-        return ocoCondo;
+        if (ocoCondo.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(ocoCondo);
+        }
     }
 
 
     @GetMapping("/listar/datahora/{datahora}")
     @CrossOrigin
-    public List<Ocorrencia> horaOcorrencias(@PathVariable Timestamp datahora){
+    public ResponseEntity<?> horaOcorrencias(@PathVariable Timestamp datahora){
         List<Ocorrencia> ocoHora = dao.findAllByDatahora(datahora);
-        return ocoHora;
+
+        if (ocoHora.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(ocoHora);
+        }
     }
 
     @GetMapping("/listar/usuario/{idUsuario}")
     @CrossOrigin
-    public List<Ocorrencia> usuarioIdOcorrencia(@PathVariable Long idUsuario){
+    public ResponseEntity<?> usuarioIdOcorrencia(@PathVariable Long idUsuario){
         List<Ocorrencia> ocoUser = dao.findAllByUsuarioId(idUsuario);
-        return ocoUser;
+        if (ocoUser.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(ocoUser);
+        }
     }
 
     @PostMapping("/inserir")

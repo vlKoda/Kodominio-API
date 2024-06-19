@@ -6,6 +6,7 @@ import com.br.Kodominio.modelos.entidades.Condominio;
 import com.br.Kodominio.modelos.entidades.Usuario;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,14 +32,25 @@ public class UsuarioController {
 
     @GetMapping("/listar/{id}")
     @CrossOrigin
-    public Optional<Usuario> usuarioById(@PathVariable Long id){
-        return dao.findById(id);
+    public ResponseEntity<?> usuarioById(@PathVariable Long id){
+        Optional<Usuario> optionalUsuario = dao.findById(id);
+        if (optionalUsuario.isPresent()) {
+            return ResponseEntity.ok(optionalUsuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/listar/condominio/{idCondominio}")
     @CrossOrigin
-    public List<Usuario> listarPorCondominio(@PathVariable Integer idCondominio){
-        return (List<Usuario>) dao.findAllByCondominioId(idCondominio);
+    public ResponseEntity<?> listarPorCondominio(@PathVariable Integer idCondominio){
+        List<Usuario> listUserCondo = dao.findAllByCondominioId(idCondominio);
+
+        if (listUserCondo.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(listUserCondo);
+        }
     }
 
     @PostMapping("/cadastrar")

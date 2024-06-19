@@ -3,6 +3,7 @@ package com.br.Kodominio.modelos.entidades;
 
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -52,12 +53,16 @@ public class Condominio {
     @Column(name = "cep", nullable = false, length = 8)
     private String cep;
 
+
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("condominio")
     @JsonManagedReference("condominio-ocorrencias")
     @BatchSize(size = 20)
     private Set<Ocorrencia> ocorrencias;
 
+
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("condominio")
     @JsonManagedReference("condominio-usuarios")
     @BatchSize(size = 20)
     private Set<Usuario> usuarios;

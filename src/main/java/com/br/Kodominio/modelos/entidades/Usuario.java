@@ -3,6 +3,7 @@ package com.br.Kodominio.modelos.entidades;
 import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 import com.br.Kodominio.modelos.role.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -53,7 +54,9 @@ public class Usuario implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("usuario")
     private List<Ocorrencia> ocorrencias;
 
 

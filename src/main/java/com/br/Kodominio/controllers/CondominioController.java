@@ -5,7 +5,9 @@ import com.br.Kodominio.dao.ICondominio;
 import com.br.Kodominio.modelos.entidades.Condominio;
 
 import lombok.Data;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -23,8 +25,13 @@ public class CondominioController {
     }
 
     @GetMapping("/listar/{id}")
-    public Optional<Condominio> condominioPorId(@PathVariable Integer id){
-        return (Optional<Condominio>) dao.findById(id);
+    public ResponseEntity<?> condominioPorId(@PathVariable Integer id){
+        Optional<Condominio> optionalCondominio = dao.findById(id);
+        if (optionalCondominio.isPresent()) {
+            return ResponseEntity.ok(optionalCondominio.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/cadastrar")
