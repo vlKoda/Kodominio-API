@@ -47,7 +47,7 @@ public class Ocorrencia {
     @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_condominio", nullable = false)
     @JsonBackReference("condominio-ocorrencias")
     private Condominio condominio;

@@ -1,6 +1,7 @@
 package com.br.Kodominio.dao;
 
 import com.br.Kodominio.modelos.entidades.Condominio;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @EnableJpaRepositories
 public interface ICondominio extends CrudRepository<Condominio, Integer> {
 
+    @EntityGraph(attributePaths = "ocorrencias")
     @Query("select distinct c from Condominio c left join fetch c.usuarios left join fetch c.ocorrencias")
     List<Condominio> findAll();
 
