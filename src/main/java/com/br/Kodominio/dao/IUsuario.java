@@ -23,4 +23,7 @@ public interface IUsuario extends CrudRepository<Usuario, Long> {
     @Query("select distinct u from Usuario u join fetch u.condominio c where c.id = :idCondominio")
     List<Usuario> findAllByCondominioId(@Param("idCondominio") Integer idCondominio);
 
+    @Query("select distinct u from Usuario u left join fetch u.ocorrencias")
+    List<Usuario> findAll();
+
 }

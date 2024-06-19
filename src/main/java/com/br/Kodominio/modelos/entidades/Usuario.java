@@ -42,7 +42,7 @@ public class Usuario implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_condominio")
     @JsonBackReference("condominio-usuarios")
     private Condominio condominio;
@@ -53,7 +53,7 @@ public class Usuario implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Ocorrencia> ocorrencias;
 
 

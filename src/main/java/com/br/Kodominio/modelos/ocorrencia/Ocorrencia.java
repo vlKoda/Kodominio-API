@@ -42,7 +42,7 @@ public class Ocorrencia {
     @Column(name = "aprovacao", nullable = false)
     private String aprovacao;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
