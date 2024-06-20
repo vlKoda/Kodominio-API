@@ -23,9 +23,23 @@ public class CondominioController {
     private CondominioService service;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Condominio>> listarCondominio() {
+    public ResponseEntity<?> listarCondominio() {
         List<Condominio> listaCondominio = service.listarCondominio();
-        return ResponseEntity.ok(listaCondominio);
+        if(listaCondominio.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(listaCondominio);
+        }
+    }
+
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<?> condominioPorId(@PathVariable Integer id){
+        Optional<Condominio> condoId = service.condominioPorId(id);
+        if(condoId.isPresent()){
+            return ResponseEntity.ok(condoId);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/cadastrar")

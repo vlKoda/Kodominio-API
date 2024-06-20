@@ -25,37 +25,57 @@ public class OcorrenciaController {
 
     @GetMapping("/listar")
     @CrossOrigin
-    public ResponseEntity<List<Ocorrencia>> listarOcorrencia(){
+    public ResponseEntity<?> listarOcorrencia(){
         List<Ocorrencia> list = dao.findAll();
-        return ResponseEntity.ok(list);
+        if(list.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(list);
+        }
     }
 
     @GetMapping("/listar/{id}")
     @CrossOrigin
-    public ResponseEntity<Optional<Ocorrencia>> getOcorrencia(@PathVariable Integer id){
+    public ResponseEntity<?> getOcorrencia(@PathVariable Integer id){
         Optional<Ocorrencia> Ocorrencia = service.getOcorrencia(id);
-        return ResponseEntity.ok(Ocorrencia);
+        if(Ocorrencia.isPresent()){
+            return ResponseEntity.ok(Ocorrencia);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/listar/condominio/{condominio}")
     @CrossOrigin
-    public ResponseEntity<List<Ocorrencia>> condominioOcorrencias(@PathVariable Integer idCondominio){
+    public ResponseEntity<?> condominioOcorrencias(@PathVariable Integer idCondominio){
         List<Ocorrencia> ocoCondo = service.listarCondominio(idCondominio);
-        return ResponseEntity.ok(ocoCondo);
+        if (ocoCondo.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(ocoCondo);
+        }
     }
 
     @GetMapping("/listar/usuario/{idUsuario}")
-    public ResponseEntity<List<Ocorrencia>> usuarioOcorrencias(@PathVariable Long idUsuario){
+    public ResponseEntity<?> usuarioOcorrencias(@PathVariable Long idUsuario){
         List<Ocorrencia> ocoUser = service.listarUsuario(idUsuario);
-        return ResponseEntity.ok(ocoUser);
+        if (ocoUser.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(ocoUser);
+        }
     }
 
 
     @GetMapping("/listar/datahora/{datahora}")
     @CrossOrigin
-    public ResponseEntity<List<Ocorrencia>> horaOcorrencias(@PathVariable Timestamp datahora){
+    public ResponseEntity<?> horaOcorrencias(@PathVariable Timestamp datahora){
         List<Ocorrencia> ocoHora = service.listarDataHora(datahora);
-        return ResponseEntity.ok(ocoHora);
+        if (ocoHora.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(ocoHora);
+        }
     }
 
 

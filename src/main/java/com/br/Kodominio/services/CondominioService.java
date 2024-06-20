@@ -25,6 +25,10 @@ public class CondominioService {
         return (List<Condominio>) dao.findAll();
     }
 
+    public Optional<Condominio> condominioPorId(@PathVariable Integer id){
+        return (Optional<Condominio>) dao.findById(id);
+    }
+
     public Condominio editarCondominio(@RequestBody Condominio condominio){
         Condominio condominioEdit = dao.save(condominio);
         return condominioEdit;

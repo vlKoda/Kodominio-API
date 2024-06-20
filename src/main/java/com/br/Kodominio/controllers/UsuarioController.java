@@ -33,15 +33,23 @@ public class UsuarioController {
     private EmailService emailService;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Usuario>> listarUsuario(){
+    public ResponseEntity<?> listarUsuario(){
         List<Usuario> listaUsuario = service.listarUsuario();
+        if(listaUsuario.isEmpty()){
+        return ResponseEntity.noContent().build();
+        }else {
         return ResponseEntity.ok(listaUsuario);
+        }
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity<Optional<Usuario>> listarPorId(@PathVariable Long id){
+    public ResponseEntity<?> listarPorId(@PathVariable Long id){
         Optional<Usuario> usuarioListar = service.listarPorId(id);
+        if(usuarioListar.isPresent()){
         return ResponseEntity.ok(usuarioListar);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/cadastrar")
