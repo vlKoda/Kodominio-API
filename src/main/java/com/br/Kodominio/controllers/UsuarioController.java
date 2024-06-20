@@ -52,6 +52,17 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/listar/condominio/{idCondominio}")
+    public ResponseEntity<?> listarPorCondominio(@PathVariable Integer idCondominio){
+        List<Usuario> listUserCondo = dao.findAllByCondominioId(idCondominio);
+
+        if (listUserCondo.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok(listUserCondo);
+        }
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrarUsuario(@RequestBody @Valid RegisterDTO data){
         if(this.dao.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

@@ -24,8 +24,12 @@ public class UsuarioService {
         return (List<Usuario>) dao.findAll();
     }
 
-    public Optional listarPorId(@PathVariable Long id){
+    public Optional<Usuario> listarPorId(@PathVariable Long id){
         return dao.findById(id);
+    }
+
+    public List<Usuario> listarPorCondominio(@PathVariable Integer idCondominio){
+        return dao.findAllByCondominioId(idCondominio);
     }
 
     public Optional<Usuario> deletarUsuario(@PathVariable Long id){
