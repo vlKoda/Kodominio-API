@@ -18,12 +18,13 @@ public interface IUsuario extends CrudRepository<Usuario, Long> {
     UserDetails findByEmail(String email);
 
     @EntityGraph(attributePaths = "ocorrencias")
-    @Query("select distinct u from Usuario u left join fetch u.ocorrencias")
     Optional<Usuario> findById(Long id);
 
     @Query("select distinct u from Usuario u join fetch u.condominio c where c.id = :idCondominio")
     List<Usuario> findAllByCondominioId(@Param("idCondominio") Integer idCondominio);
 
-
+    @EntityGraph(attributePaths = "ocorrencias")
+    @Query("select distinct u from Usuario u left join fetch u.ocorrencias")
+    List<Usuario> findAll();
 
 }
