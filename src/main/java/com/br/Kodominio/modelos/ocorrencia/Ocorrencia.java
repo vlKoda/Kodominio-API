@@ -44,7 +44,6 @@ public class Ocorrencia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
-    @JsonBackReference("usuario-ocorrencias")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
