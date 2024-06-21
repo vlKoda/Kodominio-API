@@ -23,7 +23,8 @@ import java.util.Optional;
 public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
 
 
-   List<Ocorrencia> findAllByCondominioId(Integer idCondominio);
+    @Query("select distinct o from Ocorrencia o left join fetch o.usuario")
+    List<Ocorrencia> findAllByCondominioId(Integer idCondominio);
 
     List<Ocorrencia> findAllByDatahora(Timestamp datahora);
 
