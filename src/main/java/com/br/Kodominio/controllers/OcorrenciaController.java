@@ -7,6 +7,7 @@ import com.br.Kodominio.modelos.ocorrencia.Ocorrencia;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,11 +82,11 @@ public class OcorrenciaController {
         return ocorrenciaCreate;
     }
 
-    @PutMapping("/editar")
+    @PutMapping("/editar/{id}")
     @CrossOrigin
-    public Ocorrencia editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
+    public ResponseEntity<Ocorrencia> editarOcorrencia(@PathVariable Integer id, @RequestBody Ocorrencia ocorrencia){
         Ocorrencia ocorrenciaEdit = dao.save(ocorrencia);
-        return ocorrenciaEdit;
+        return ResponseEntity.ok(ocorrenciaEdit);
     }
 
     @PutMapping("/status")
