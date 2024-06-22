@@ -28,7 +28,7 @@ public interface IOcorrencia extends CrudRepository<Ocorrencia, Integer> {
     @Query("select distinct o from Ocorrencia o join fetch o.usuario join fetch o.condominio")
     List<Ocorrencia> findAll();
 
-    @Query("select distinct o from Ocorrencia o left join fetch o.condominio where o.id = :id")
+    @Query("select distinct o from Ocorrencia o left join fetch o.usuario where o.id = :id")
     Optional<Ocorrencia> findById(Integer id);
 
 }
