@@ -86,10 +86,10 @@ public class OcorrenciaController {
         return ResponseEntity.ok(ocorrenciaCreate);
     }
 
-    @PutMapping("/editar")
+    @PutMapping("/editar/{id}")
     @CrossOrigin
-    public ResponseEntity<Ocorrencia> editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaEdit = service.editarOcorrencia(bocorrencia, ocorrencia);
+    public ResponseEntity<Ocorrencia> editarOcorrencia(@PathVariable Integer id, @RequestBody Ocorrencia ocorrencia){
+        Ocorrencia ocorrenciaEdit = service.editarOcorrencia(ocorrencia);
         return ResponseEntity.ok(ocorrenciaEdit);
     }
 

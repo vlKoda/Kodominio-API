@@ -24,7 +24,7 @@ public class OcorrenciaService {
         return dao.save(ocorrencia);
     }
 
-    public Ocorrencia editarOcorrencia(@RequestParam String bocorrencia, Ocorrencia ocorrencia){
+    public Ocorrencia editarOcorrencia(@RequestBody Ocorrencia ocorrencia){
         return dao.save(ocorrencia);
     }
 
