@@ -84,31 +84,36 @@ public class OcorrenciaController {
 
     @PutMapping("/editar/{id}")
     @CrossOrigin
-    public ResponseEntity<Ocorrencia> editarOcorrencia(@PathVariable Integer id, @RequestBody Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaEdit = dao.save(ocorrencia);
-        return ResponseEntity.ok(ocorrenciaEdit);
+    public ResponseEntity<Ocorrencia> statusOcorrencia(
+            @PathVariable Integer id,
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "aprovacao", required = false) String aprovacao,
+            @RequestParam(value = "prioridade", required = false) String prioridade) {
+
+        // Verificar se a ocorrência existe no banco de dados
+        Optional<Ocorrencia> ocorrenciaOptional = dao.findById(id);
+        if (!ocorrenciaOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Ocorrencia ocorrenciaStatus = ocorrenciaOptional.get();
+
+        // Atualizar os valores de status e aprovacao se forem fornecidos
+        if (status != null) {
+            ocorrenciaStatus.setStatus(status);
+        }
+        if (aprovacao != null) {
+            ocorrenciaStatus.setAprovacao(aprovacao);
+        }
+        if (prioridade != null){
+            ocorrenciaStatus.setPrioridade(prioridade);
+        }
+
+        // Salvar a ocorrência atualizada
+        Ocorrencia ocorrenciaAtualizada = dao.save(ocorrenciaStatus);
+        return ResponseEntity.ok(ocorrenciaAtualizada);
     }
 
-    @PutMapping("/status/{id}")
-    @CrossOrigin
-    public Ocorrencia statusOcorrencia(@PathVariable Integer id, @RequestBody String status, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaStatus = dao.save(ocorrencia);
-        return ocorrenciaStatus;
-    }
-
-    @PutMapping("/prioridade")
-    @CrossOrigin
-    public Ocorrencia prioridadeOcorrencia(@RequestBody String prioridade, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaPrioridade = dao.save(ocorrencia);
-        return ocorrenciaPrioridade;
-    }
-
-    @PutMapping("/aprovacao")
-    @CrossOrigin
-    public Ocorrencia aprovarOcorrencia(@RequestBody String aprovacao, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaAprovar = dao.save(ocorrencia);
-        return ocorrenciaAprovar;
-    }
 
     @DeleteMapping("/{id}")
     @CrossOrigin
