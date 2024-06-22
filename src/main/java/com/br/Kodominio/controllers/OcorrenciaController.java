@@ -88,33 +88,13 @@ public class OcorrenciaController {
 
     @PutMapping("/editar/{id}")
     @CrossOrigin
-    public ResponseEntity<Ocorrencia> editarOcorrencia(@PathVariable Integer id, @RequestBody Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaEdit = service.editarOcorrencia(ocorrencia);
+    public ResponseEntity<Ocorrencia> editarOcorrencia(@PathVariable Integer id, @RequestParam(value = "status", required = false) String status,
+                                                       @RequestParam(value = "aprovacao", required = false) String aprovacao, @RequestParam(value = "prioridade", required = false) String prioridade){
+        Ocorrencia ocorrenciaEdit = service.editarOcorrencia(id, status, aprovacao, prioridade);
         return ResponseEntity.ok(ocorrenciaEdit);
     }
 
-    @PutMapping("/status")
-    @CrossOrigin
-    public ResponseEntity<Ocorrencia> statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaStatus = service.setStatus(status, ocorrencia);
-        return ResponseEntity.ok(ocorrenciaStatus);
-    }
-
-    @PutMapping("/prioridade")
-    @CrossOrigin
-    public ResponseEntity<Ocorrencia> prioridadeOcorrencia(@RequestBody String prioridade, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaPrioridade = service.setPrioridade(prioridade, ocorrencia);
-        return ResponseEntity.ok(ocorrenciaPrioridade);
-    }
-
-    @PutMapping("/aprovacao")
-    @CrossOrigin
-    public ResponseEntity<Ocorrencia> aprovarOcorrencia(@RequestBody String aprovacao, Ocorrencia ocorrencia){
-        Ocorrencia ocorrenciaAprovar = service.setAprovacao(aprovacao, ocorrencia);
-        return ResponseEntity.ok(ocorrenciaAprovar);
-    }
-
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     @CrossOrigin
     public ResponseEntity<Optional<Ocorrencia>> deletarOcorrencia(@PathVariable Integer id){
         service.deletarOcorrencia(id);

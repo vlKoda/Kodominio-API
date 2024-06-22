@@ -24,20 +24,29 @@ public class OcorrenciaService {
         return dao.save(ocorrencia);
     }
 
-    public Ocorrencia editarOcorrencia(@RequestBody Ocorrencia ocorrencia){
-        return dao.save(ocorrencia);
-    }
+    public Ocorrencia editarOcorrencia(@PathVariable Integer id, @RequestParam(value = "status", required = false) String status,
+                                       @RequestParam(value = "aprovacao", required = false) String aprovacao,
+                                       @RequestParam(value = "prioridade", required = false) String prioridade){
 
-    public Ocorrencia setStatus(@RequestParam Integer status, Ocorrencia ocorrencia){
-        return dao.save(ocorrencia);
-    }
+        // Verificar se a ocorrência existe no banco de dados
+        Optional<Ocorrencia> ocorrenciaOptional = dao.findById(id);
 
-    public Ocorrencia setPrioridade(@RequestParam String prioridade, Ocorrencia ocorrencia){
-        return dao.save(ocorrencia);
-    }
+        Ocorrencia ocorrenciaStatus = ocorrenciaOptional.get();
 
-    public Ocorrencia setAprovacao(@RequestParam String aprovacao, Ocorrencia ocorrencia){
-        return dao.save(ocorrencia);
+        // Atualizar os valores de status e aprovacao se forem fornecidos
+        if (status != null) {
+            ocorrenciaStatus.setStatus(status);
+        }
+        if (aprovacao != null) {
+            ocorrenciaStatus.setAprovacao(aprovacao);
+        }
+        if (prioridade != null){
+            ocorrenciaStatus.setPrioridade(prioridade);
+        }
+
+        // Salvar a ocorrência atualizada
+        Ocorrencia ocorrenciaAtualizada = dao.save(ocorrenciaStatus);
+        return ocorrenciaAtualizada;
     }
 
     public Optional<Ocorrencia> deletarOcorrencia(@PathVariable Integer id){

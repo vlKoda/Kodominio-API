@@ -54,7 +54,7 @@ public class CondominioController {
         return ResponseEntity.ok(condominioEdit);
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCondominio(@PathVariable Integer id){
         service.deletarCondominio(id);
         return ResponseEntity.noContent().build();
