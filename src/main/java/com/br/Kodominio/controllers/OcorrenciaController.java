@@ -89,9 +89,9 @@ public class OcorrenciaController {
         return ResponseEntity.ok(ocorrenciaEdit);
     }
 
-    @PutMapping("/status")
+    @PutMapping("/status/{id}")
     @CrossOrigin
-    public Ocorrencia statusOcorrencia(@RequestBody Integer status, Ocorrencia ocorrencia){
+    public Ocorrencia statusOcorrencia(@PathVariable Integer id, @RequestBody String status, Ocorrencia ocorrencia){
         Ocorrencia ocorrenciaStatus = dao.save(ocorrencia);
         return ocorrenciaStatus;
     }
