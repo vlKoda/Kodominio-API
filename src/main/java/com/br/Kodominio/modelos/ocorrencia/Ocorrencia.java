@@ -39,7 +39,7 @@ public class Ocorrencia {
     @Column(name = "prioridade", nullable = false)
     private String prioridade;
 
-    @Column(name = "aprovacao", nullable = false)
+    @Column(name = "aprovacao", nullable = true)
     private String aprovacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
